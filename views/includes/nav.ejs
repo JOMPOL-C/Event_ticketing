@@ -1,13 +1,19 @@
 <header>
     <nav>
-        <div class="nav-header flex justify-between items-center">
-            <div class="nav-links hidden md:flex space-x-4">
-                <a href="/" class="text-gray-700 hover:text-gray-900">หน้าแรก</a>
-                <a href="/events" class="text-gray-700 hover:text-gray-900">อีเวนต์</a>
-                <a href="/select_login" class="text-gray-700 hover:text-gray-900">เข้าสู่ระบบ</a>
+        <div class="nav-left">
+            <a href="/" class="logo">🎟️ Event Ticketing</a>
+            <a href="/">หน้าหลัก</a>
+            <a href="#">อีเวนต์</a>
+        </div>
 
+        <div class="nav-right">
+            <% if (user) { %>
+                <span class="user-name"> <%= user.username %></span>
+                <a href="/api/logout" class="logout-btn">ออกจากระบบ</a>
+                <% } else { %>
+                    <a href="/select_login" class="logout-btn" style="background-color:#4f46e5">เข้าสู่ระบบ</a>
+                    <% } %>
         </div>
     </nav>
-</header>
 
-<script src="/js/nav.js"></script>
+</header>

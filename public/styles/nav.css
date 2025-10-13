@@ -3,133 +3,133 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-  }
-  
-  /* HEADER */
-  header {
+}
+
+/* HEADER */
+header {
     background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     padding: 10px 20px;
-  }
-  
-  /* NAV Header + Body */
-  .nav-header,
-  .nav-body {
+}
+
+/* NAV Header + Body */
+.nav-header,
+.nav-body {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 10px;
-  }
-  
-  .logo {
+}
+
+.logo {
     font-size: 1.5em;
     font-weight: bold;
-  }
-  
-  .search-user button {
+}
+
+.search-user button {
     background-color: #fafafa;
     padding: 5px 10px;
     border-radius: 5px;
-  }
-  
-  nav ul {
+}
+
+nav ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-  
-  nav ul li {
+}
+
+nav ul li {
     margin-right: 20px;
-  }
-  
-  nav a {
+}
+
+nav a {
     text-decoration: none;
     color: #374151;
     font-weight: bold;
-  }
-  
-  nav a:hover {
+}
+
+nav a:hover {
     color: #4f46e5;
-  }
-  
-  /* Coin Balance */
-  .coin-balance {
+}
+
+/* Coin Balance */
+.coin-balance {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  
-  .coin-balance span {
+}
+
+.coin-balance span {
     font-weight: bold;
-  }
-  
-  .coin-balance button {
+}
+
+.coin-balance button {
     background-color: #4f46e5;
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .coin-balance button a {
+}
+
+.coin-balance button a {
     color: white;
     text-decoration: none;
-  }
-  
-  /* Footer */
-  footer {
+}
+
+/* Footer */
+footer {
     background-color: #ffffff;
     border-top: 1px solid #e5e7eb;
     padding: 20px;
     text-align: center;
     color: #6b7280;
     font-size: 0.875em;
-  }
-  
-  footer a {
+}
+
+footer a {
     color: #4f46e5;
     text-decoration: none;
-  }
-  
-  footer a:hover {
+}
+
+footer a:hover {
     text-decoration: underline;
-  }
-  
-  /* Tag span */
-  span {
+}
+
+/* Tag span */
+span {
     padding: 0.25rem 0.75rem;
     background-color: #f4f4f5;
     border-radius: 9999px;
-  }
-  
-  span a {
+}
+
+span a {
     text-decoration: none;
     color: inherit;
     font-weight: bold;
-  }
-  
-  /* Profile + Dropdown */
-  .profile {
+}
+
+/* Profile + Dropdown */
+.profile {
     position: relative;
     display: inline-block;
-  }
-  
-  .avatar-btn {
+}
+
+.avatar-btn {
     border: none;
     background: none;
     cursor: pointer;
     padding: 4px;
-  }
-  
-  .avatar-btn img {
+}
+
+.avatar-btn img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 1px solid #ccc;
-  }
-  
-  .dropdown {
+}
+
+.dropdown {
     position: absolute;
     top: 50px;
     right: 0;
@@ -140,57 +140,57 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     z-index: 100;
-  }
-  
-  .dropdown.hidden {
+}
+
+.dropdown.hidden {
     display: none;
-  }
-  
-  .dropdown-header {
+}
+
+.dropdown-header {
     padding: 12px;
     border-bottom: 1px solid #eee;
-  }
-  
-  .dropdown ul {
+}
+
+.dropdown ul {
     display: flex;
     flex-direction: column;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-  
-  .dropdown ul li {
+}
+
+.dropdown ul li {
     padding: 10px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-  }
-  
-  .dropdown ul li a {
+}
+
+.dropdown ul li a {
     text-decoration: none;
     color: #333;
-  }
-  
-  .dropdown ul li:hover {
+}
+
+.dropdown ul li:hover {
     background: #f5f5f5;
-  }
-  
-  /* Switch / Dark Mode */
-  .switch {
+}
+
+/* Switch / Dark Mode */
+.switch {
     position: relative;
     display: inline-block;
     width: 45px;
     height: 24px;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -200,9 +200,9 @@ body {
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -212,25 +212,74 @@ body {
     background-color: white;
     transition: .4s;
     border-radius: 50%;
-  }
-  
-  input:checked+.slider {
+}
+
+input:checked+.slider {
     background-color: #4f46e5;
-  }
-  
-  input:checked+.slider:before {
+}
+
+input:checked+.slider:before {
     transform: translateX(22px);
-  }
-  
-  .slider.round {
+}
+
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
-  
-  .dark-mode {
+}
+
+.dark-mode {
     background-color: #1f2937;
     color: white;
-  }
+}
+
+/* ทำให้ nav เป็น flex layout มีซ้าย-ขวา */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* ⬅️ แยกซ้าย-ขวา */
+    padding: 10px 30px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ส่วนซ้าย เช่น โลโก้ / เมนู */
+nav .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ส่วนขวา เช่น ชื่อผู้ใช้ + ปุ่ม logout */
+nav .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+    /* ดันไปขวาสุด */
+}
+
+/* ปรับชื่อผู้ใช้ */
+nav .user-name {
+    font-weight: 600;
+    color: #4f46e5;
+}
+
+/* ปุ่ม logout */
+nav .logout-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav .logout-btn:hover {
+    background-color: #dc2626;
+}

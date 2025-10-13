@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
 
         // สร้าง token
         const token = jwt.sign(
-            { id: user._id, role: user.role },
+            { id: user._id, username: user.username, role: user.role },
             process.env.JWT_SECRET
         );
         res.cookie("token", token, { httpOnly: true });
@@ -63,4 +63,10 @@ exports.login = async (req, res) => {
         console.error("❌ Login Error:", err.message);
         res.status(500).send("เกิดข้อผิดพลาดภายในระบบ");
     }
+};
+
+exports.logout = (req, res) => {
+    res.clearCookie("token");
+    console.log("🚪 User logged out");
+    res.redirect("/");
 };

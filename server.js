@@ -10,6 +10,7 @@ const cloudinary = require('cloudinary').v2;
 const pagerender = require('./src/utils/pagerender');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
 
 
 const app = express();
@@ -21,6 +22,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(morgan('dev'));
+
+app.use((req, res, next) => {
+  const token = req.cookies?.token; // ป้องกัน undefined
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.locals.user = decoded;
+    } catch (err) {
+      res.locals.user = null;
+    }
+  } else {
+    res.locals.user = null;
+  }
+  next();
+});
 
 // load .env
 require('dotenv').config();
