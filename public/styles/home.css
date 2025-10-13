@@ -1,0 +1,143 @@
+/* 🌈 General Layout */
+body {
+    font-family: 'Prompt', sans-serif;
+    background-color: #f8f9fb;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ---------------- Hero Section ---------------- */
+  .hero {
+    position: relative;
+    text-align: center;
+    color: white;
+    background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
+    padding: 6rem 1rem;
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: white;
+    color: #4f46e5;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  
+  .btn-primary:hover {
+    background: #f1f1f1;
+  }
+  
+  /* ---------------- Upcoming Events Section ---------------- */
+  .events {
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+  
+  .events h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2.5rem;
+  }
+  
+  .empty-state {
+    color: #666;
+  }
+  
+  .empty-state i {
+    font-size: 5rem;
+    color: #bbb;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .empty-state .main {
+    font-size: 1.2rem;
+    color: #444;
+  }
+  
+  .empty-state .sub {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 0.5rem;
+  }
+  
+  /* ---------------- Call to Action ---------------- */
+  .cta {
+    background: #4f46e5;
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+  }
+  
+  .cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: white;
+    color: #4f46e5;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: #f1f1f1;
+  }
+  
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+  
+    .hero p {
+      font-size: 1rem;
+    }
+  
+    .cta h2 {
+      font-size: 1.6rem;
+    }
+  }
+  

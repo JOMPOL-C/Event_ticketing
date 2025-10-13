@@ -1,10 +1,38 @@
 <%- include('includes/head') %>
-    </head>
+<link rel="stylesheet" href="../styles/home.css">
+</head>
 
-    <body>
-        <%- include('includes/nav') %>
+<body>
+  <%- include('includes/nav') %>
 
-            <%- include('includes/footer') %>
-    </body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>ยินดีต้อนรับสู่ Event Ticketing</h1>
+      <p>จองตั๋วอีเวนต์สุดพิเศษของคุณได้ในที่เดียว</p>
+      <a href="/register" class="btn-primary">เริ่มต้นใช้งาน</a>
+    </div>
+    <div class="overlay"></div>
+  </section>
 
-    </html>
+  <!-- Upcoming Events Section -->
+  <section class="events">
+    <h2>🎉 อีเวนต์ที่กำลังจะมาถึง</h2>
+
+    <div class="empty-state">
+      <i class='bx bx-calendar-x'></i>
+      <p class="main">ยังไม่มีอีเวนต์ให้แสดงในขณะนี้</p>
+      <p class="sub">กรุณากลับมาอีกครั้งเมื่อมีการเพิ่มอีเวนต์ใหม่</p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>อยากจัดงานอีเวนต์ของคุณเอง?</h2>
+    <p>สมัครเป็นผู้จัดงานเพื่อสร้างกิจกรรมใหม่ได้ทันที</p>
+    <a href="/register/organizer" class="btn-secondary">สมัครเป็นผู้จัดงาน</a>
+  </section>
+
+  <%- include('includes/footer') %>
+</body>
+</html>

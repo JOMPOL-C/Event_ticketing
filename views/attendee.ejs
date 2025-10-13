@@ -1,16 +1,23 @@
 <%- include('includes/head') %>
+<link rel="stylesheet" href="../styles/form.css">
   </head>
 
   <body>
     <%- include('includes/nav') %>
-    
-      <h2>สมัครสมาชิกสำหรับผู้เข้าร่วม (Attendee)</h2>
-      <form action="/register/attendee" method="POST">
-        <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
-        <input type="email" name="email" placeholder="อีเมล" required>
-        <input type="password" name="password" placeholder="รหัสผ่าน" required>
-        <button type="submit">สมัครสมาชิก</button>
-      </form>
+
+      <main class="main-content">
+        <div class="form-container">
+          <h2>สมัครสมาชิกสำหรับผู้เข้าร่วม (Attendee)</h2>
+          <form action="/register/attendee" method="POST">
+            <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
+            <input type="email" name="email" placeholder="อีเมล" required>
+            <input type="password" name="password" placeholder="รหัสผ่าน" required>
+            <button type="submit">สมัครสมาชิก</button>
+          </form>
+        </div>
+      </main>
 
       <%- include('includes/footer') %>
   </body>
+
+  </html>

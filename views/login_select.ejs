@@ -1,30 +1,30 @@
 <%- include('includes/head') %>
-<link rel="stylesheet" href="">
-    </head>
+<link rel="stylesheet" href="../styles/login_select.css">
+</head>
 
-    <body>
-        <%- include('includes/nav') %>
+<body>
+    <%- include('includes/nav') %>
 
-            <main class="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-center">
-                <h1 class="text-3xl font-bold mb-6 text-gray-800">เข้าสู่ระบบ / สมัครสมาชิก</h1>
-                <p class="text-gray-600 mb-10">กรุณาเลือกประเภทผู้ใช้ของคุณ</p>
+        <main class="selection-main">
+            <h1>เข้าสู่ระบบ / สมัครสมาชิก</h1>
+            <p>กรุณาเลือกประเภทผู้ใช้ของคุณ</p>
 
-                <div class="flex gap-10">
-                    <a href="/attendee" class="block bg-white p-8 rounded-2xl shadow hover:shadow-lg transition">
-                        <img src="/images/attendee.png" alt="Attendee" class="w-24 mx-auto mb-4" />
-                        <h2 class="text-xl font-semibold text-blue-600 mb-2">ผู้เข้าร่วม (Attendee)</h2>
-                        <p class="text-sm text-gray-500">สำหรับผู้ที่ต้องการจองตั๋วและเข้าร่วมอีเวนต์</p>
-                    </a>
+            <div class="card-container">
+                <a href="/attendee" class="user-card">
+                    <img src="/images/attendee.png" alt="Attendee" />
+                    <h2 class="attendee-title">ผู้เข้าร่วม (Attendee)</h2>
+                    <p class="card-description">สำหรับผู้ที่ต้องการจองตั๋วและเข้าร่วมอีเวนต์</p>
+                </a>
 
-                    <a href="/organizer" class="block bg-white p-8 rounded-2xl shadow hover:shadow-lg transition">
-                        <img src="/images/organizer.png" alt="Organizer" class="w-24 mx-auto mb-4" />
-                        <h2 class="text-xl font-semibold text-green-600 mb-2">ผู้จัดงาน (Organizer)</h2>
-                        <p class="text-sm text-gray-500">สำหรับผู้ที่ต้องการสร้างและจัดการอีเวนต์</p>
-                    </a>
-                </div>
-            </main>
+                <a href="/organizer" class="user-card">
+                    <img src="/images/organizer.png" alt="Organizer" />
+                    <h2 class="organizer-title">ผู้จัดงาน (Organizer)</h2>
+                    <p class="card-description">สำหรับผู้ที่ต้องการสร้างและจัดการอีเวนต์</p>
+                </a>
+            </div>
+        </main>
 
-            <%- include('includes/footer') %>
-    </body>
+        <%- include('includes/footer') %>
+</body>
 
-    </html>
+</html>
