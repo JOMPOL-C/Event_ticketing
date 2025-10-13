@@ -1,0 +1,19 @@
+[
+    {
+      "event_id": 1,
+      "title": "KU Tech Conference 2025",
+      "description": "งานสัมมนานักเทคโนโลยีแห่งปี",
+      "date": "2025-11-20",
+      "location": "Kasetsart University KPS",
+      "price": 300
+    },
+    {
+      "event_id": 2,
+      "title": "Music Fest KPS",
+      "description": "เทศกาลดนตรีในรั้วเขียว",
+      "date": "2025-12-01",
+      "location": "KPS Stadium",
+      "price": 150
+    }
+  ]
+  

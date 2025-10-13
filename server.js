@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 const pagerender = require('./src/utils/pagerender');
+const { Script } = require("vm");
 
 
 const app = express();
@@ -46,7 +47,10 @@ fs.readdirSync(path.join(__dirname, "src/routers"))
   });
 
 /* ---------- Page render (EJS pages) ---------- */
-
+app.get("/", pagerender.renderHome);
+app.get("/attendee", pagerender.renderattendee);
+app.get("/organizer", pagerender.renderorganizer);
+app.get("/select_login", pagerender.renderSelectlogin);
 
 /* ---------- Start ---------- */
 app.listen(port, () => {
