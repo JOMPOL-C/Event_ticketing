@@ -1,13 +1,15 @@
-const User = require("../models/userModel");
+const Organizer = require("../models/organizerModel");
+const Attendee = require("../models/attendeeModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // สมัครสมาชิกผู้เข้าร่วม
 exports.registerAttendee = async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = new User({ username, email, password, role: "attendee" });
+        const user = new Attendee({ username, email, password, role: "attendee" });
         await user.save();
-        res.redirect("/login");
+        res.redirect("/select_login");
     } catch (err) {
         console.error("❌ Register Attendee Error:", err.message);
         res.status(400).send("สมัครสมาชิกผู้เข้าร่วมไม่สำเร็จ");
@@ -18,9 +20,9 @@ exports.registerAttendee = async (req, res) => {
 exports.registerOrganizer = async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = new User({ username, email, password, role: "organizer" });
+        const user = new Organizer({ username, email, password, role: "organizer" });
         await user.save();
-        res.redirect("/login");
+        res.redirect("/select_login");
     } catch (err) {
         console.error("❌ Register Organizer Error:", err.message);
         res.status(400).send("สมัครสมาชิกผู้จัดงานไม่สำเร็จ");
@@ -31,25 +33,34 @@ exports.login = async (req, res) => {
     const { email, password, userType } = req.body;
 
     try {
-        const user = await User.findOne({ email, role: userType });
+        let user;
+
+        if (userType === "attendee") {
+            user = await Attendee.findOne({ email });
+        } else if (userType === "organizer") {
+            user = await Organizer.findOne({ email });
+        }
+
         if (!user) return res.status(400).send("ไม่พบบัญชีนี้");
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).send("รหัสผ่านไม่ถูกต้อง");
 
-        // JWT
-        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET);
+        // สร้าง token
+        const token = jwt.sign(
+            { id: user._id, role: user.role },
+            process.env.JWT_SECRET
+        );
         res.cookie("token", token, { httpOnly: true });
 
-        // redirect ตามประเภท
-        if (userType === "attendee") {
-            return res.redirect("/attendee/home");
+        // redirect ตาม role
+        if (user.role === "attendee") {
+            return res.redirect("/");
         } else {
-            return res.redirect("/organizer/dashboard");
+            return res.redirect("/");
         }
     } catch (err) {
-        console.error("Login Error:", err);
+        console.error("❌ Login Error:", err.message);
         res.status(500).send("เกิดข้อผิดพลาดภายในระบบ");
     }
 };
-

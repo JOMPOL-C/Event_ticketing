@@ -8,7 +8,8 @@ const cookieParser = require("cookie-parser");
 const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 const pagerender = require('./src/utils/pagerender');
-const { Script } = require("vm");
+const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(morgan('dev'));
 
 // load .env
 require('dotenv').config();
@@ -31,6 +33,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
   secure: true,
 });
+
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
 
 /* ---------- View Engine (EJS) ---------- */
