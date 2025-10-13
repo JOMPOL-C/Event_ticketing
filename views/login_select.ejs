@@ -1,30 +1,71 @@
 <%- include('includes/head') %>
-<link rel="stylesheet" href="../styles/login_select.css">
-</head>
+    <link rel="stylesheet" href="../styles/login_select.css">
+    </head>
 
-<body>
-    <%- include('includes/nav') %>
+    <body>
+        <%- include('includes/nav') %>
 
-        <main class="selection-main">
-            <h1>เข้าสู่ระบบ / สมัครสมาชิก</h1>
-            <p>กรุณาเลือกประเภทผู้ใช้ของคุณ</p>
+            <main class="login-page-container">
+                <div class="illustration-side">
+                    <img src="../images/Event_ticketing.jpg" alt="Login Illustration">
+                </div>
 
-            <div class="card-container">
-                <a href="/attendee" class="user-card">
-                    <img src="/images/attendee.png" alt="Attendee" />
-                    <h2 class="attendee-title">ผู้เข้าร่วม (Attendee)</h2>
-                    <p class="card-description">สำหรับผู้ที่ต้องการจองตั๋วและเข้าร่วมอีเวนต์</p>
-                </a>
+                <div class="form-side">
+                    <div class="form-wrapper">
 
-                <a href="/organizer" class="user-card">
-                    <img src="/images/organizer.png" alt="Organizer" />
-                    <h2 class="organizer-title">ผู้จัดงาน (Organizer)</h2>
-                    <p class="card-description">สำหรับผู้ที่ต้องการสร้างและจัดการอีเวนต์</p>
-                </a>
-            </div>
-        </main>
+                        <div class="tab-container">
+                            <button id="attendeeTab" class="tab-btn active" type="button">ผู้เข้าร่วม</button>
+                            <button id="organizerTab" class="tab-btn" type="button">ผู้จัดงาน</button>
+                        </div>
 
-        <%- include('includes/footer') %>
-</body>
+                        <form action="/login" method="POST">
+                            <h1>เข้าสู่ระบบ</h1>
 
-</html>
+                            <div class="input-group">
+                                <label for="email">อีเมล</label>
+                                <input type="email" id="email" name="email" placeholder="กรอกอีเมลของคุณ" required>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="password">รหัสผ่าน</label>
+                                <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน"
+                                    required>
+                            </div>
+
+                            <input type="hidden" id="userType" name="userType" value="attendee">
+
+                            <button type="submit" class="submit-btn">เข้าสู่ระบบ</button>
+
+                            <div class="register-link">
+                                <p>ยังไม่มีบัญชี? <a id="registerLink" href="/attendee">สมัครสมาชิก</a></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </main>
+
+            <%- include('includes/footer') %>
+
+                <script>
+                    const attendeeTab = document.getElementById('attendeeTab');
+                    const organizerTab = document.getElementById('organizerTab');
+                    const userTypeInput = document.getElementById('userType');
+
+                    attendeeTab.addEventListener('click', () => {
+                        userTypeInput.value = 'attendee';
+                        attendeeTab.classList.add('active');
+                        organizerTab.classList.remove('active');
+                        registerLink.setAttribute('href', '/attendee');
+                    });
+
+                    organizerTab.addEventListener('click', () => {
+                        userTypeInput.value = 'organizer';
+                        organizerTab.classList.add('active');
+                        attendeeTab.classList.remove('active');
+                        registerLink.setAttribute('href', '/organizer');
+                    });
+                </script>
+    </body>
+
+    </html>

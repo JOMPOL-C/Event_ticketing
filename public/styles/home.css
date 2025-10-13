@@ -1,143 +1,168 @@
-/* 🌈 General Layout */
-body {
+/* ---------------- Root Variables ---------------- */
+/* ✨ ปรับแก้สีทั้งหมดของเว็บได้ง่ายๆ ที่นี่ */
+:root {
+    --background: #f9fafb; /* สีพื้นหลังหลัก */
+    --foreground: #ffffff; /* สีพื้นหลังรอง (เช่น card) */
+    --primary: #2563eb; /* สีหลัก (ปุ่ม, ลิงก์) */
+    --primary-hover: #1d4ed8; /* สีหลักเมื่อ hover */
+  
+    --text-heading: #111827; /* สีตัวอักษรสำหรับหัวข้อ */
+    --text-body: #374151; /* สีตัวอักษรสำหรับเนื้อหา */
+    --text-muted: #6b7280; /* สีตัวอักษรสำหรับข้อความรอง */
+  
+    --border-color: #e5e7eb; /* สีเส้นขอบ */
+    --border-radius: 0.75rem; /* 12px */
+  }
+  
+  /* ---------------- General Layout ---------------- */
+  body {
     font-family: 'Prompt', sans-serif;
-    background-color: #f8f9fb;
-    color: #333;
+    background-color: var(--background);
+    color: var(--text-body);
     margin: 0;
     padding: 0;
+    line-height: 1.6;
   }
   
   /* ---------------- Hero Section ---------------- */
   .hero {
-    position: relative;
     text-align: center;
-    color: white;
-    background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
-    padding: 6rem 1rem;
-    overflow: hidden;
-  }
-  
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
+    padding: 7rem 1.5rem;
+    max-width: 800px;
     margin: 0 auto;
   }
   
   .hero h1 {
-    font-size: 2.8rem;
+    color: var(--text-heading);
+    font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1.5px;
   }
   
   .hero p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-  }
-  
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.25);
-    z-index: 1;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .btn-primary {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background: white;
-    color: #4f46e5;
+    background: var(--primary);
+    color: white;
     font-weight: 600;
-    border-radius: 9999px;
+    border-radius: var(--border-radius);
     text-decoration: none;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-in-out;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
   }
   
   .btn-primary:hover {
-    background: #f1f1f1;
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(37, 99, 235, 0.25);
   }
   
   /* ---------------- Upcoming Events Section ---------------- */
   .events {
-    padding: 5rem 2rem;
+    padding: 5rem 1.5rem;
     text-align: center;
   }
   
   .events h2 {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 700;
-    color: #222;
-    margin-bottom: 2.5rem;
+    color: var(--text-heading);
+    margin-bottom: 4rem;
   }
   
+  /* Empty State Styling */
   .empty-state {
-    color: #666;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 3rem;
+    background-color: var(--foreground);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
   }
   
   .empty-state i {
-    font-size: 5rem;
-    color: #bbb;
+    font-size: 4rem;
+    color: var(--primary);
+    opacity: 0.6;
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .empty-state .main {
     font-size: 1.2rem;
-    color: #444;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.5rem;
   }
   
   .empty-state .sub {
-    font-size: 0.9rem;
-    color: #777;
-    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-muted);
   }
   
-  /* ---------------- Call to Action ---------------- */
+  /* ---------------- Call to Action (CTA) Section ---------------- */
   .cta {
-    background: #4f46e5;
-    color: white;
+    background: var(--foreground);
     text-align: center;
     padding: 4rem 2rem;
-    margin-top: 3rem;
+    margin: 4rem auto;
+    max-width: 1000px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
   }
   
   .cta h2 {
     font-size: 2rem;
+    color: var(--text-heading);
     margin-bottom: 1rem;
   }
   
   .cta p {
     font-size: 1.1rem;
+    color: var(--text-muted);
     margin-bottom: 2rem;
   }
   
   .btn-secondary {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background: white;
-    color: #4f46e5;
+    background: var(--background);
+    color: var(--primary);
     font-weight: 600;
-    border-radius: 9999px;
+    border-radius: var(--border-radius);
     text-decoration: none;
-    transition: all 0.25s ease;
+    border: 1px solid var(--border-color);
+    transition: all 0.25s ease-in-out;
   }
   
   .btn-secondary:hover {
-    background: #f1f1f1;
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
   }
   
-  /* ---------------- Responsive ---------------- */
+  /* ---------------- Responsive Design ---------------- */
   @media (max-width: 768px) {
     .hero h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
   
     .hero p {
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
   
+    .events h2,
     .cta h2 {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
     }
   }
-  
