@@ -1,0 +1,52 @@
+<%- include('../includes/head') %>
+</head><body>
+<%- include('../includes/nav') %>
+<main class="container" style="max-width:960px;margin:24px auto;padding:0 16px;">
+  <h1>Events</h1>
+  <form method="get" action="/api/events" class="grid gap-2" style="grid-template-columns: repeat(6, minmax(0,1fr)); align-items:end; margin:12px 0;">
+  <div style="grid-column: span 2;">
+    <label>ค้นหา</label>
+    <input type="text" name="keyword" value="<%= (filters && filters.keyword) || '' %>" placeholder="ชื่อ/รายละเอียด/สถานที่" />
+  </div>
+  <div>
+    <label>ราคาเริ่ม</label>
+    <input type="number" name="priceMin" min="0" value="<%= (filters && filters.priceMin) || '' %>" />
+  </div>
+  <div>
+    <label>ราคาสูงสุด</label>
+    <input type="number" name="priceMax" min="0" value="<%= (filters && filters.priceMax) || '' %>" />
+  </div>
+  <div>
+    <label>เริ่มตั้งแต่</label>
+    <input type="date" name="dateFrom" value="<%= (filters && filters.dateFrom) || '' %>" />
+  </div>
+  <div>
+    <label>ถึง</label>
+    <input type="date" name="dateTo" value="<%= (filters && filters.dateTo) || '' %>" />
+  </div>
+  <div>
+    <label>เรียง</label>
+    <select name="sort">
+      <option value="date_asc"  <%= (filters && filters.sort==='date_asc') ? 'selected' : '' %>>วันเริ่มใกล้ -> ไกล</option>
+      <option value="date_desc" <%= (filters && filters.sort==='date_desc') ? 'selected' : '' %>>วันเริ่มไกล -> ใกล้</option>
+      <option value="price_asc" <%= (filters && filters.sort==='price_asc') ? 'selected' : '' %>>ราคาต่ำ -> สูง</option>
+      <option value="price_desc"<%= (filters && filters.sort==='price_desc') ? 'selected' : '' %>>ราคาสูง -> ต่ำ</option>
+    </select>
+  </div>
+  <div style="grid-column: span 6; display:flex; gap:8px;">
+    <button type="submit">ค้นหา</button>
+    <a href="/api/events">ล้างตัวกรอง</a>
+  </div>
+</form>
+  <ul>
+    <% (events||[]).forEach(ev => { %>
+      <li style="margin:8px 0;">
+        <a href="/api/events/<%= ev._id %>"><%= ev.title %></a>
+        — <%= new Date(ev.startAt).toLocaleString() %>
+        — <%= ev.price %> THB
+        <% if (ev.coverImage) { %><img src="<%= ev.coverImage %>" style="height:40px;vertical-align:middle;"><% } %>
+      </li>
+    <% }) %>
+  </ul>
+</main>
+</body></html>
