@@ -1,0 +1,99 @@
+<%- include('../includes/head') %>
+  <title><%= (event && event._id) ? 'แก้ไขอีเวนต์' : 'สร้างอีเวนต์ใหม่' %> · EventCat</title>
+</head>
+<body class="bg-zinc-50">
+  <%- include('../includes/nav') %>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-semibold mb-6">
+      <%= (event && event._id) ? 'แก้ไขอีเวนต์' : 'สร้างอีเวนต์ใหม่' %>
+    </h1>
+
+    <form
+      action="<%= (event && event._id) ? ('/api/events/' + event._id + '?_method=PATCH') : '/api/events' %>"
+      method="post"
+      enctype="multipart/form-data"
+      class="bg-white border border-zinc-200 rounded-2xl p-5 space-y-4">
+
+      <div>
+        <label class="block text-sm text-zinc-600 mb-1">ชื่ออีเวนต์</label>
+        <input name="title" type="text" required
+               value="<%= event?.title || '' %>"
+               class="w-full border rounded-lg px-3 py-2">
+      </div>
+
+      <div>
+        <label class="block text-sm text-zinc-600 mb-1">คำอธิบาย</label>
+        <textarea name="description" rows="4"
+                  class="w-full border rounded-lg px-3 py-2"><%= event?.description || '' %></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">สถานที่ (Venue)</label>
+          <input name="venue" type="text" required
+                 value="<%= event?.venue || '' %>"
+                 class="w-full border rounded-lg px-3 py-2">
+        </div>
+
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">สถานะ</label>
+          <select name="status" class="w-full border rounded-lg px-3 py-2">
+            <option value="draft"     <%= event?.status==='draft' ? 'selected' : '' %>>ฉบับร่าง</option>
+            <option value="published" <%= (!event || event?.status==='published') ? 'selected' : '' %>>เผยแพร่</option>
+            <option value="archived"  <%= event?.status==='archived' ? 'selected' : '' %>>เก็บถาวร</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">เริ่มวันที่/เวลา</label>
+          <input name="startAt" type="datetime-local" required
+                 value="<%= event?.startAt ? new Date(event.startAt).toISOString().slice(0,16) : '' %>"
+                 class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">สิ้นสุดวันที่/เวลา (ไม่บังคับ)</label>
+          <input name="endAt" type="datetime-local"
+                 value="<%= event?.endAt ? new Date(event.endAt).toISOString().slice(0,16) : '' %>"
+                 class="w-full border rounded-lg px-3 py-2">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">ราคา (THB)</label>
+          <input name="price" type="number" min="0" step="1" required
+                 value="<%= event?.price ?? 0 %>"
+                 class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-600 mb-1">จำนวนตั๋วทั้งหมด</label>
+          <input name="totalTickets" type="number" min="0" step="1" required
+                 value="<%= event?.totalTickets ?? 0 %>"
+                 class="w-full border rounded-lg px-3 py-2">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm text-zinc-600 mb-1">รูปปกอีเวนต์ (อัปโหลดใหม่เพื่อแทนที่)</label>
+        <% if (event?.coverImage) { %>
+          <img src="<%= event.coverImage %>" class="w-full h-40 object-cover rounded-lg mb-2" />
+        <% } %>
+        <input type="file" name="coverImage" accept="image/*" class="w-full border rounded-lg px-3 py-2">
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="submit"
+                class="px-4 py-2 rounded-xl text-white bg-indigo-600 hover:bg-indigo-700">
+          <%= (event && event._id) ? 'บันทึกการแก้ไข' : 'สร้างอีเวนต์' %>
+        </button>
+        <a href="/api/events/mine" class="px-4 py-2 rounded-xl border">ยกเลิก</a>
+      </div>
+    </form>
+  </main>
+
+  <%- include('../includes/footer') %>
+</body>
+</html>
