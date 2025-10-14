@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
+const Attendee = require("../models/attendeeModel");
+const Organizer = require("../models/organizerModel");
 
-exports.authRequired = (req, res, next) => {
+exports.authRequired = async (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
@@ -10,7 +12,18 @@ exports.authRequired = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // เก็บข้อมูล user (id, role)
+    console.log("🔹 Token payload:", jwt.decode(token));
+    const Model = decoded.role === "organizer" ? Organizer : Attendee;
+    const user = await Model.findById(decoded.id).lean();
+
+    if (!user) {
+      console.log("❌ User not found in DB");
+      return res.redirect("/login");
+    }
+
+    req.user = user;
+    res.locals.user = user; // ✅ ให้ EJS ทุกหน้าเข้าถึงได้
+
     next();
   } catch (err) {
     console.error("❌ Invalid token:", err.message);

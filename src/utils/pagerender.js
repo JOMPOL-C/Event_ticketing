@@ -10,4 +10,5 @@ module.exports = {
     renderattendee: Page('attendee', 'Register as Attendee'),
     renderorganizer: Page('organizer', 'Register as Organizer'),
     renderSelectlogin: Page('login_select', 'Select Login Type'),
+    renderProfile: Page('profile', 'User Profile'),
 };

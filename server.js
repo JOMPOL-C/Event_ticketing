@@ -2,6 +2,9 @@ require("dotenv").config();
 console.log("OMISE_PUBLIC_KEY loaded?", !!process.env.OMISE_PUBLIC_KEY);
 console.log("OMISE_SECRET_KEY loaded?", !!process.env.OMISE_SECRET_KEY);
 
+const Attendee = require("./src/models/attendeeModel");
+const Organizer = require("./src/models/organizerModel");
+
 const path = require("path");
 const express = require("express");
 const cookieParser = require("cookie-parser");
@@ -11,6 +14,7 @@ const pagerender = require('./src/utils/pagerender');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
+// const Multer = require('multer');
 
 
 const app = express();
@@ -23,20 +27,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(morgan('dev'));
 
-app.use((req, res, next) => {
-  const token = req.cookies?.token; // ป้องกัน undefined
-  if (token) {
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      res.locals.user = decoded;
-    } catch (err) {
-      res.locals.user = null;
-    }
-  } else {
+
+app.use(async (req, res, next) => {
+  const token = req.cookies?.token;
+  if (!token) {
+    res.locals.user = null;
+    return next();
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const Model = decoded.role === "organizer" ? Organizer : Attendee;
+    const user = await Model.findById(decoded.id).lean();
+
+    res.locals.user = user || decoded; // ถ้าไม่มีใน DB ใช้ข้อมูลจาก token
+    console.log("✅ User loaded:", res.locals.user);
+  } catch (err) {
+    console.error("JWT decode error:", err.message);
     res.locals.user = null;
   }
+
   next();
 });
+
+
 
 // load .env
 require('dotenv').config();
@@ -73,7 +87,9 @@ fs.readdirSync(path.join(__dirname, "src/routers"))
 app.get("/", pagerender.renderHome);
 app.get("/attendee", pagerender.renderattendee);
 app.get("/organizer", pagerender.renderorganizer);
-app.get("/select_login", pagerender.renderSelectlogin);
+app.get("/login", pagerender.renderSelectlogin);
+// app.get("/profile", pagerender.renderProfile);
+
 
 /* ---------- Start ---------- */
 app.listen(port, () => {

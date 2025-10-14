@@ -1,19 +1,51 @@
 <header>
     <nav>
-        <div class="nav-left">
-            <a href="/" class="logo">🎟️ Event Ticketing</a>
-            <a href="/">หน้าหลัก</a>
-            <a href="#">อีเวนต์</a>
+      <div class="nav-left">
+        <div class="logo">
+          <a href="/">EventCat</a>
         </div>
-
-        <div class="nav-right">
-            <% if (user) { %>
-                <span class="user-name"> <%= user.username %></span>
-                <a href="/api/logout" class="logout-btn">ออกจากระบบ</a>
-                <% } else { %>
-                    <a href="/select_login" class="logout-btn" style="background-color:#4f46e5">เข้าสู่ระบบ</a>
-                    <% } %>
+        <div class="nav-links">
+          <ul>
+            <li><a href="/" class="active">หน้าแรก</a></li>
+            <li><a href="/events">อีเวนต์</a></li>
+          </ul>
         </div>
+      </div>
+  
+      <div class="nav-right">
+        <label class="switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="slider round"></span>
+        </label>
+  
+        <% if (user) { %>
+        <!-- Logged-in User -->
+        <div class="profile">
+          <button class="avatar-btn" id="avatarButton">
+            <img src="<%= user.profileImage%>" alt="User Avatar">
+          </button>
+          <div class="dropdown hidden" id="profileDropdown">
+            <div class="dropdown-header">
+                <div class="username"><%= user.username %></div>
+                <div class="email"><%= user.email %></div>
+            </div>
+            <ul>
+              <li><a href="/api/profile"><i class='bx bx-user'></i> โปรไฟล์</a></li>
+              <% if (user.role === "attendee") { %>
+                <li><a href="/my-tickets"><i class='bx bx-purchase-tag'></i> ตั๋วของฉัน</a></li>
+              <% } else { %>
+                <li><a href="/organizer/dashboard"><i class='bx bx-calendar-event'></i> จัดการอีเวนต์</a></li>
+              <% } %>
+              <li><a href="/api/logout" class="logout"><i class='bx bx-log-out'></i> ออกจากระบบ</a></li>
+            </ul>
+          </div>
+        </div>
+        <% } else { %>
+        <!-- Guest User -->
+        <a href="/login" class="logout-btn" style="background-color:#4f46e5;">เข้าสู่ระบบ</a>
+        <% } %>
+      </div>
     </nav>
-
-</header>
+  </header>
+  
+  <script src="/script/nav.js"></script>

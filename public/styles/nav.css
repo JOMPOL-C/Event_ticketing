@@ -283,3 +283,20 @@ nav .logout-btn {
 nav .logout-btn:hover {
     background-color: #dc2626;
 }
+
+/* Dropdown visibility */
+.dropdown.hidden {
+    display: none;
+  }
+  
+  /* Hover effects inside dropdown */
+  .dropdown ul li:hover {
+    background-color: #f3f4f6;
+  }
+  
+  /* Avatar hover */
+  .avatar-btn img:hover {
+    border: 2px solid #4f46e5;
+    transition: 0.2s;
+  }
+  
