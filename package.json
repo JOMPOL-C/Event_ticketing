@@ -1,44 +1,45 @@
 {
-  "name": "event_ticketing",
+  "name": "event_ticketing-main",
   "version": "1.0.0",
-  "description": "Event Ticketing System – Full-stack web app using Node.js, Express, EJS, and MongoDB (Mongoose)",
+  "description": "ระบบจัดการอีเวนต์และจำหน่ายบัตรเข้าร่วมงาน ที่ช่วยให้ผู้จัดงานสามารถสร้างและบริหารอีเวนต์ของตนเองได้ง่าย   พร้อมทั้งเปิดให้ผู้เข้าร่วมค้นหาอีเวนต์และจองบัตรได้สะดวกผ่านระบบออนไลน์",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "author": "JOMPOL CHUENREROM",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "keywords": [
-    "event",
-    "ticketing",
-    "nodejs",
-    "express",
-    "ejs",
-    "mongodb",
-    "mongoose"
-  ],
   "dependencies": {
-    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
+    "compression": "^1.8.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^17.2.2",
+    "csurf": "^1.11.0",
+    "dayjs": "^1.11.18",
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "fs": "^0.0.1-security",
+    "express-rate-limit": "^8.1.0",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.20.0",
-    "mongoose": "^8.8.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.19.1",
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
-    "multer-storage-cloudinary": "^4.0.0",
-    "omise": "^1.0.0",
-    "uuid": "^8.3.2"
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  },
+  }
+}
+,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JOMPOL-C/Event_ticketing.git"
