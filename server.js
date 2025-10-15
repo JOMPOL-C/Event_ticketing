@@ -9,6 +9,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const methodOverride = require('method-override');
+const fs = require('fs');
+
 
 // --- Models used in auth middleware ---
 const Attendee = require('./src/models/attendeeModel');
@@ -17,13 +19,6 @@ const Organizer = require('./src/models/organizerModel');
 // --- Page controllers / utils ---
 const pageCtrl = require('./src/controllers/pageController');
 const pagerender = require('./src/utils/pagerender');
-
-// --- Routers (mount แบบ explicit) ---
-const authRouter    = require('./src/routers/authRouter');
-const eventsRouter  = require('./src/routers/eventsRouter');
-const ordersRouter  = require('./src/routers/ordersRouter');
-const ticketsRouter = require('./src/routers/ticketsRouter');
-const organizerRouter = require('./src/routers/organizerRouter'); // ถ้ามี
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -38,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(morgan('dev'));
 app.use(methodOverride('_method')); // รองรับ PATCH/DELETE จากฟอร์ม
-app.use('/api', require('./src/routers/organizerRouter'));
 
 
 // --- (เลือก) log คีย์เฉพาะตอน dev ---
@@ -100,12 +94,14 @@ mongoose
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// --- Mount API Routers ---
-app.use('/api', authRouter);
-app.use('/api', eventsRouter);
-app.use('/api', ordersRouter);
-app.use('/api', ticketsRouter);
-app.use('/api', organizerRouter); // ถ้ามีหน้า dashboard
+/* ---------- Routers ---------- */
+fs.readdirSync(path.join(__dirname, "src/routers"))
+  .filter(file => file.endsWith(".js"))
+  .forEach((file) => {
+    const route = require(path.join(__dirname, "src/routers", file));
+    console.log("👉 Loaded file:", file);
+    app.use("/api", route);
+  });
 
 // --- Page render (EJS pages) ---
 app.get('/', pageCtrl.home); // ดึง upcoming events จาก DB
@@ -115,8 +111,7 @@ app.get('/login', pagerender.renderSelectlogin);
 
 // --- 404 ---
 app.use((req, res) => {
-  res.status(404);
-  return res.render ? res.render('404', { title: 'ไม่พบหน้า' }) : res.send('Not Found');
+  res.status(404).render('404', { title: 'ไม่พบหน้า' });
 });
 
 // --- Error handler (Express 5) ---

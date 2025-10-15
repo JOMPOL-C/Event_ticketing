@@ -40,7 +40,7 @@ exports.registerOrganizer = async (req, res) => {
     return res.redirect("/login");
   } catch (err) {
     console.error("❌ Register Organizer Error:", err.message);
-    return res.status(400).send("สมัครสมาชิกผู้จัดงานไม่สำเร็จ");
+    return res.status(400).send("สมัครสมาชิกผู้จัดงานไม่สำเร็จ"+ err.message);
   }
 };
 
