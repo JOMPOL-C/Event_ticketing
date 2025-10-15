@@ -1,6 +1,38 @@
 /* General Body Styles */
+main {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(12px);
+  }
+
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.container {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
 body {
-    font-family: 'Prompt', sans-serif;
+
     background-color: #f0f2f5;
     display: flex;
     flex-direction: column; /* 1. เปลี่ยนเป็นเรียงจากบนลงล่าง */

@@ -26,12 +26,11 @@
     /* สีเส้นขอบ */
     --border-radius: 0.75rem;
     /* 12px */
-
-    --font-sans: 'Prompt', sans-serif;
 }
 
 /* --- Global & Main Layout --- */
 body {
+
     font-family: var(--font-sans);
     background-color: var(--background);
     color: var(--text-body);
@@ -53,14 +52,17 @@ body {
 /* --- Typography --- */
 .container h1 {
     font-family: var(--font-sans);
-    font-size: 3rem; /* ✨ เพิ่มขนาดฟอนต์ให้ใหญ่ขึ้น */
+    font-size: 3rem;
+    /* ✨ เพิ่มขนาดฟอนต์ให้ใหญ่ขึ้น */
     font-weight: 700;
     color: var(--text-heading);
     text-align: center;
     line-height: 1.2;
     margin-top: 0;
-    margin-bottom: 2rem; /* ปรับระยะห่างเล็กน้อย */
-    padding-bottom: 2rem; /* เพิ่มพื้นที่ใต้เส้นขีด */
+    margin-bottom: 2rem;
+    /* ปรับระยะห่างเล็กน้อย */
+    padding-bottom: 2rem;
+    /* เพิ่มพื้นที่ใต้เส้นขีด */
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -143,8 +145,9 @@ p[style*="color:red;"] {
 /* --- Checkout Form (แก้ไข) --- */
 .form-container {
     margin-top: 2.5rem;
-    padding: 1.5rem; /* ✨ แก้จาก padding-top เป็น padding รอบด้าน */
-    
+    padding: 1.5rem;
+    /* ✨ แก้จาก padding-top เป็น padding รอบด้าน */
+
     /* ✨ เพิ่มสไตล์ให้เป็นกรอบที่สวยงาม */
     background-color: var(--background);
     border: 1px solid var(--border-color);
@@ -213,5 +216,37 @@ p[style*="color:red;"] {
 
     h1 {
         font-size: 4rem;
+    }
+}
+
+main {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

@@ -1,8 +1,7 @@
-// src/routers/payments.js
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
+
 
 const Event = require('../models/eventModel');
 const Order = require('../models/orderModel');
@@ -34,9 +33,22 @@ router.post('/checkout', authRequired, async (req, res, next) => {
 
     // ตรวจ event และสต็อก
     const event = await Event.findOne({ _id: eventId, status: 'published' }).lean();
-    if (!event) return res.status(404).send('ไม่พบอีเวนต์');
+    if (!event) {
+      return res.send(`
+        <script>
+          alert('ไม่พบอีเวนต์');
+          window.location.href = '/api/events';
+        </script>
+      `);
+    }
+
     if ((event.remainingTickets ?? event.totalTickets ?? 0) < n) {
-      return res.status(400).send('ตั๋วไม่พอ');
+      return res.send(`
+        <script>
+          alert('ตั๋วไม่พอ');
+          window.location.href = '/api/events';
+        </script>
+      `);
     }
 
     const amount = Math.round(Number(event.price) * n * 100); // สตางค์

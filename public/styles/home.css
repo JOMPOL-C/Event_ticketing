@@ -1,4 +1,36 @@
 /* ---------------- Root Variables ---------------- */
+section {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ✨ ปรับแก้สีทั้งหมดของเว็บได้ง่ายๆ ที่นี่ */
 :root {
   --background: #f9fafb;
@@ -25,7 +57,7 @@
 
 /* ---------------- General Layout ---------------- */
 body {
-  font-family: 'Prompt', sans-serif;
+
   background-color: var(--background);
   color: var(--text-body);
   margin: 0;
@@ -36,7 +68,7 @@ body {
 /* ---------------- Hero Section ---------------- */
 .hero {
   text-align: center;
-  padding: 7rem 1.5rem;
+  padding: 1rem 1.5rem;
   max-width: 800px;
   margin: 0 auto;
 }
@@ -242,4 +274,51 @@ body {
   .cta h2 {
     font-size: 1.8rem;
   }
+}
+
+/* ---------------- SOLD OUT Card ---------------- */
+.card.sold-out {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+  /* ❌ ป้องกันการกด */
+}
+
+.card.sold-out img {
+  filter: grayscale(80%) brightness(85%);
+}
+
+.card.sold-out .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: var(--border-radius);
+}
+
+.no-image {
+  width: 100%;
+  height: 180px;
+  background: var(--background);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.hoverable {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }

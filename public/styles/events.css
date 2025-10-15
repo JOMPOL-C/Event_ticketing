@@ -1,17 +1,227 @@
+/* ---------------- Theme Variables ---------------- */
+:root {
+    --background: #f9fafb;
+    --foreground: #ffffff;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --border-color: #e5e7eb;
+    --text-heading: #111827;
+    --text-body: #374151;
+    --text-muted: #6b7280;
+    --border-radius: 0.75rem;
+}
+
+/* ---------------- Global ---------------- */
+body {
+    background-color: var(--background);
+    color: var(--text-body);
+}
+
+main {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------------- Header ---------------- */
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+header a:hover {
+    transform: translateY(-2px);
+}
+
+main {
+    background: var(--foreground);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+/* ---------------- Search Form ---------------- */
+form {
+    background: var(--foreground);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.25s ease;
+}
+
+form:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+form input,
+form select {
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ---------------- Event Card Grid ---------------- */
+.grid a {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: var(--border-radius);
+}
+
+.grid a:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-color: rgba(37, 99, 235, 0.25);
+}
+
+/* Image */
+.grid img {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    transition: transform 0.4s ease;
+}
+
+.grid a:hover img {
+    transform: scale(1.05);
+}
+
+/* Card Content */
+.grid .p-4 {
+    padding: 1.2rem;
+}
+
+.grid h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+}
+
+.grid p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Empty state */
+.text-center.text-zinc-500 {
+    color: var(--text-muted) !important;
+    background-color: var(--foreground);
+    border-radius: var(--border-radius);
+    border-style: dashed;
+    padding: 3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    form {
+        padding: 1.25rem;
+    }
+}
+
 .container {
     animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  input, select {
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+input,
+select {
     transition: all 0.2s ease-in-out;
-  }
-  
-  input:focus, select:focus {
+}
+
+input:focus,
+select:focus {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-  }
-  
+}
+
+.event-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.event-card img,
+.event-card .no-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.event-card .info {
+    padding: 1rem;
+}
+
+.event-card h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.event-card p {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* 🧊 การ์ด Sold Out */
+.event-card.sold-out {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #9ca3af;
+    pointer-events: none;
+    /* ❌ ปิดการคลิก */
+    filter: grayscale(100%);
+    opacity: 0.8;
+}
+
+.sold-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+}
