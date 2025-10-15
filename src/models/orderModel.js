@@ -25,9 +25,10 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ['pending', 'paid', 'cancelled', 'refunded'],
-      default: 'paid',           // โปรเจกต์นี้ชำระจำลอง จบที่ paid
+      default: 'pending',
       index: true,
     },
+    
     paidAt: { type: Date },
   },
   { timestamps: true }

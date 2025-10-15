@@ -1,23 +1,34 @@
 <%- include('../includes/head') %>
-</head><body>
-<%- include('../includes/nav') %>
-<main class="container" style="max-width:960px;margin:24px auto;padding:0 16px;">
-  <h1>ตั๋วของฉัน</h1>
-  <% if (!tickets || tickets.length === 0) { %>
-    <p>ยังไม่มีตั๋ว</p>
-  <% } %>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
-    <% (tickets||[]).forEach(t => { %>
-      <div style="border:1px solid #eee;border-radius:12px;padding:12px;">
-        <h3><%= t.event.title %></h3>
-        <p><small><%= new Date(t.event.startAt).toLocaleString() %></small></p>
-        <p>โค้ด: <code><%= t.code %></code></p>
-        <% if (t.qrDataUrl) { %>
-          <img src="<%= t.qrDataUrl %>" alt="QR" style="width:100%;height:auto;">
-        <% } %>
-        <p>สถานะ: <%= t.status %></p>
-      </div>
-    <% }) %>
-  </div>
-</main>
-</body></html>
+  <link rel="stylesheet" href="/styles/my_tickets.css">
+  </head>
+
+  <body>
+    <%- include('../includes/nav') %>
+      <main class="container" style="max-width:960px;margin:24px auto;">
+        <h1>ตั๋วของฉัน</h1>
+
+        <% if (!tickets || tickets.length===0) { %>
+          <p>ยังไม่มีตั๋ว</p>
+          <% } else { %>
+            <div class="ticket-grid">
+              <% tickets.forEach(t=> { %>
+                <div class="ticket-card">
+                  <h3>
+                    <%= t.event.title %>
+                  </h3>
+                  <p><small>
+                      <%= new Date(t.event.startAt).toLocaleString() %>
+                    </small></p>
+                  <p>โค้ด: <code><%= t.code %></code></p>
+                  <% if (t.qrDataUrl) { %>
+                    <img src="<%= t.qrDataUrl %>" alt="QR">
+                    <% } %>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+      </main>
+
+  </body>
+
+  </html>

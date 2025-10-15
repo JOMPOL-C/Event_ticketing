@@ -1,168 +1,245 @@
 /* ---------------- Root Variables ---------------- */
 /* ✨ ปรับแก้สีทั้งหมดของเว็บได้ง่ายๆ ที่นี่ */
 :root {
-    --background: #f9fafb; /* สีพื้นหลังหลัก */
-    --foreground: #ffffff; /* สีพื้นหลังรอง (เช่น card) */
-    --primary: #2563eb; /* สีหลัก (ปุ่ม, ลิงก์) */
-    --primary-hover: #1d4ed8; /* สีหลักเมื่อ hover */
-  
-    --text-heading: #111827; /* สีตัวอักษรสำหรับหัวข้อ */
-    --text-body: #374151; /* สีตัวอักษรสำหรับเนื้อหา */
-    --text-muted: #6b7280; /* สีตัวอักษรสำหรับข้อความรอง */
-  
-    --border-color: #e5e7eb; /* สีเส้นขอบ */
-    --border-radius: 0.75rem; /* 12px */
-  }
-  
-  /* ---------------- General Layout ---------------- */
-  body {
-    font-family: 'Prompt', sans-serif;
-    background-color: var(--background);
-    color: var(--text-body);
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
-  
-  /* ---------------- Hero Section ---------------- */
-  .hero {
-    text-align: center;
-    padding: 7rem 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
+  --background: #f9fafb;
+  /* สีพื้นหลังหลัก */
+  --foreground: #ffffff;
+  /* สีพื้นหลังรอง (เช่น card) */
+  --primary: #2563eb;
+  /* สีหลัก (ปุ่ม, ลิงก์) */
+  --primary-hover: #1d4ed8;
+  /* สีหลักเมื่อ hover */
+
+  --text-heading: #111827;
+  /* สีตัวอักษรสำหรับหัวข้อ */
+  --text-body: #374151;
+  /* สีตัวอักษรสำหรับเนื้อหา */
+  --text-muted: #6b7280;
+  /* สีตัวอักษรสำหรับข้อความรอง */
+
+  --border-color: #e5e7eb;
+  /* สีเส้นขอบ */
+  --border-radius: 0.75rem;
+  /* 12px */
+}
+
+/* ---------------- General Layout ---------------- */
+body {
+  font-family: 'Prompt', sans-serif;
+  background-color: var(--background);
+  color: var(--text-body);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* ---------------- Hero Section ---------------- */
+.hero {
+  text-align: center;
+  padding: 7rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  color: var(--text-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1.5px;
+}
+
+.hero p {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* ---------------- Upcoming Events Section ---------------- */
+.events {
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.events h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 4rem;
+}
+
+/* ---------------- Event Card Grid ---------------- */
+.events .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.8rem;
+  justify-items: center;
+}
+
+/* --- Card Container --- */
+.card {
+  background: var(--foreground);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease-in-out;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  max-width: 300px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* --- Event Image --- */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* --- Card Content --- */
+.card div {
+  padding: 1rem 1.2rem;
+}
+
+.card div:first-child {
+  padding-bottom: 0.5rem;
+}
+
+.card .title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 0.5rem;
+}
+
+.card .date {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.card .price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* --- Hover Animation --- */
+.card:hover .title {
+  color: var(--primary);
+}
+
+
+/* Empty State Styling */
+.empty-state {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: var(--foreground);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: var(--primary);
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state .main {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state .sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ---------------- Call to Action (CTA) Section ---------------- */
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-radius: var(--border-radius);
+}
+
+.cta h2 {
+  font-size: 2rem;
+  color: var(--text-heading);
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--background);
+  color: var(--primary);
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  transition: all 0.25s ease-in-out;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ---------------- Responsive Design ---------------- */
+@media (max-width: 768px) {
   .hero h1 {
-    color: var(--text-heading);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1.5px;
+    font-size: 2.5rem;
   }
-  
+
   .hero p {
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    margin-bottom: 2.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .btn-primary {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    transition: all 0.25s ease-in-out;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
-  }
-  
-  .btn-primary:hover {
-    background: var(--primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(37, 99, 235, 0.25);
-  }
-  
-  /* ---------------- Upcoming Events Section ---------------- */
-  .events {
-    padding: 5rem 1.5rem;
-    text-align: center;
-  }
-  
-  .events h2 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--text-heading);
-    margin-bottom: 4rem;
-  }
-  
-  /* Empty State Styling */
-  .empty-state {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 3rem;
-    background-color: var(--foreground);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-  }
-  
-  .empty-state i {
-    font-size: 4rem;
-    color: var(--primary);
-    opacity: 0.6;
-    display: block;
-    margin-bottom: 1.5rem;
-  }
-  
-  .empty-state .main {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text-heading);
-    margin-bottom: 0.5rem;
-  }
-  
-  .empty-state .sub {
-    font-size: 1rem;
-    color: var(--text-muted);
-  }
-  
-  /* ---------------- Call to Action (CTA) Section ---------------- */
-  .cta {
-    background: var(--foreground);
-    text-align: center;
-    padding: 4rem 2rem;
-    margin: 4rem auto;
-    max-width: 1000px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-  }
-  
-  .cta h2 {
-    font-size: 2rem;
-    color: var(--text-heading);
-    margin-bottom: 1rem;
-  }
-  
-  .cta p {
     font-size: 1.1rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
   }
-  
-  .btn-secondary {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: var(--background);
-    color: var(--primary);
-    font-weight: 600;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    border: 1px solid var(--border-color);
-    transition: all 0.25s ease-in-out;
+
+  .events h2,
+  .cta h2 {
+    font-size: 1.8rem;
   }
-  
-  .btn-secondary:hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-  }
-  
-  /* ---------------- Responsive Design ---------------- */
-  @media (max-width: 768px) {
-    .hero h1 {
-      font-size: 2.5rem;
-    }
-  
-    .hero p {
-      font-size: 1.1rem;
-    }
-  
-    .events h2,
-    .cta h2 {
-      font-size: 1.8rem;
-    }
-  }
+}

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap');
+
+:root {
+  --background: #f9fafb;
+  --foreground: #ffffff;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border-color: #e5e7eb;
+  --text-heading: #111827;
+  --text-body: #374151;
+  --text-muted: #6b7280;
+  --border-radius: 0.75rem;
+}
+
+body {
+  font-family: 'Prompt', sans-serif;
+  background-color: var(--background);
+  color: var(--text-body);
+  margin: 0;
+}
+
+/* ------- Layout ------- */
+.container {
+  background-color: var(--foreground);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* ------- Title ------- */
+.container h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  text-align: center;
+  margin-bottom: 2rem;
+
+}
+
+
+/* ------- Empty State ------- */
+p {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+/* ------- Grid ------- */
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2.5rem;
+}
+
+/* ------- Ticket Card ------- */
+.ticket-card {
+  background: var(--foreground);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ticket-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* ------- Event Title ------- */
+.ticket-card h3 {
+  font-size: 1.2rem;
+  color: var(--text-heading);
+  margin: 0 0 0.25rem 0;
+}
+
+.ticket-card small {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ------- Code ------- */
+.ticket-card code {
+  background-color: var(--background);
+  color: var(--primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ------- QR Image ------- */
+.ticket-card img {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: #f3f4f6;
+}
+
+/* ------- Responsive ------- */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .ticket-card {
+    padding: 1rem;
+  }
+}

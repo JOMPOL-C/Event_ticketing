@@ -33,6 +33,7 @@
     "mongoose": "^8.19.1",
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
+    "omise": "^1.0.0",
     "qrcode": "^1.5.4"
   },
   "devDependencies": {

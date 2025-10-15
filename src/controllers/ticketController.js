@@ -3,7 +3,8 @@ const Ticket = require('../models/ticketModel');
 exports.myTickets = async (req, res, next) => {
   try {
     const tickets = await Ticket.find({ owner: req.user._id })
-      .populate('event')
+      .populate('event', 'title startAt')
+      .populate('order', 'status paidAt')
       .sort({ createdAt: -1 })
       .lean();
 
