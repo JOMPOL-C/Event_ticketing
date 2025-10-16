@@ -33,6 +33,14 @@
                 </span></p>
             </div>
 
+            <p><strong>ตั๋วคงเหลือ:</strong>
+              <span
+                style="color:<%=event.remainingTickets > 5 ? '#16a34a' : (event.remainingTickets > 0 ? '#F57D27' : '#dc2626') %>;">
+                <%= event.remainingTickets> 0 ? event.remainingTickets + ' ใบ' : 'หมดแล้ว' %>
+              </span>
+            </p>
+            </div>
+
             <div id="countdown"></div>
 
             <% if (user && user.role==='attendee' && event.status==='published' && !event.isSoldOut) { %>
@@ -48,20 +56,50 @@
                 <p style="color:red;">Sold out</p>
                 <% } %>
       </main>
+
       <script>
         const countdown = document.getElementById('countdown');
         const startAt = new Date('<%= event.startAt.toISOString() %>');
+        const endAt = new Date('<%= event.endAt.toISOString() %>');
+      
         function tick() {
-          const ms = startAt - new Date();
-          if (ms <= 0) { countdown.textContent = 'อีเวนต์เริ่มแล้ว'; return; }
-          const d = Math.floor(ms / 86400000),
-            h = Math.floor(ms % 86400000 / 3600000),
-            m = Math.floor(ms % 3600000 / 60000),
-            s = Math.floor(ms % 60000 / 1000);
-          countdown.textContent = `เหลืออีก ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที`;
+          const now = new Date();
+      
+          // งานจบแล้ว
+          if (now >= endAt) {
+            countdown.textContent = 'อีเวนต์สิ้นสุดแล้ว';
+            countdown.style.color = '#dc2626';
+            alert('อีเวนต์สิ้นสุดแล้ว');
+            window.location.href = '/';
+            return;
+          }
+      
+          // งานเริ่มแล้ว แต่ยังไม่จบ
+          if (now >= startAt && now < endAt) {
+            const ms = endAt - now;
+            const d = Math.floor(ms / 86400000);
+            const h = Math.floor((ms % 86400000) / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            countdown.textContent = `เหลือเวลา ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที ก่อนอีเวนต์จะสิ้นสุด`;
+            countdown.style.color = '#F57D27';
+            return;
+          }
+      
+          // ยังไม่เริ่ม
+          const ms = startAt - now;
+          const d = Math.floor(ms / 86400000);
+          const h = Math.floor((ms % 86400000) / 3600000);
+          const m = Math.floor((ms % 3600000) / 60000);
+          const s = Math.floor((ms % 60000) / 1000);
+          countdown.textContent = `เหลืออีก ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที ก่อนอีเวนต์จะเริ่ม`;
+          countdown.style.color = '#16a34a';
         }
-        tick(); setInterval(tick, 1000);
+      
+        tick();
+        setInterval(tick, 1000);
       </script>
+      
   </body>
 
   </html>

@@ -4,7 +4,7 @@ const eventSchema = new mongoose.Schema(
   {
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Organizer',       
+      ref: 'Organizer',
       required: true,
       index: true,
     },
@@ -48,7 +48,12 @@ eventSchema.pre('validate', function (next) {
 });
 
 eventSchema.virtual('isSoldOut').get(function () {
-  return (this.remainingTickets || 0) <= 0;
+  const now = new Date();
+  const noTicketsLeft = (this.remainingTickets || 0) <= 0;
+  const eventEnded = this.endAt && this.endAt < now;
+  return noTicketsLeft || eventEnded;
 });
+console.log('🧩 Event model reloaded');
+
 
 module.exports = mongoose.model('Event', eventSchema, 'Event');

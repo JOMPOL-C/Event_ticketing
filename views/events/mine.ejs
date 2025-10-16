@@ -1,62 +1,90 @@
 <%- include('../includes/head') %>
-  <title><%= title || 'อีเวนต์ของฉัน' %></title>
-</head>
-<body class="bg-zinc-50">
-  <%- include('../includes/nav') %>
+  <title>
+    <%= title || 'อีเวนต์ของฉัน' %>
+  </title>
+  </head>
 
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <header class="mb-6 flex items-center justify-between">
-      <h1 class="text-2xl font-semibold text-zinc-800">อีเวนต์ของฉัน</h1>
-      <a href="/api/events/new"
-         class="inline-flex items-center rounded-xl px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700">
-        + สร้างอีเวนต์ใหม่
-      </a>
-    </header>
+  <body class="bg-zinc-50">
+    <%- include('../includes/nav') %>
 
-    <% if (!events || events.length === 0) { %>
-      <div class="rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center text-zinc-500">
-        ยังไม่มีอีเวนต์ที่คุณสร้าง
-      </div>
-    <% } else { %>
-      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill,minmax(280px,1fr));">
-        <% events.forEach(ev => { %>
-          <div class="rounded-2xl border border-zinc-200 bg-white overflow-hidden">
-            <% if (ev.coverImage) { %>
-              <img src="<%= ev.coverImage %>" alt="" class="w-full h-36 object-cover">
-            <% } %>
-            <div class="p-4">
-              <div class="font-semibold text-zinc-900"><%= ev.title %></div>
-              <div class="text-xs text-zinc-500">
-                <%= ev.startAt ? new Date(ev.startAt).toLocaleString('th-TH') : '-' %>
-              </div>
-              <div class="mt-2 text-sm">
-                ราคา: <strong><%= Number(ev.price||0).toLocaleString('th-TH') %> THB</strong>
-              </div>
-              <div class="mt-1 text-xs text-zinc-600">
-                ขายแล้ว: <%= (ev.metrics?.sold ?? (ev.sold||0)) %> /
-                <%= ev.totalTickets ?? '-' %>
-              </div>
+      <main class="max-w-7xl mx-auto px-4 py-8">
+        <header class="mb-6 flex items-center justify-between">
+          <h1 class="text-2xl font-semibold text-zinc-800">อีเวนต์ของฉัน</h1>
+          <a href="/api/events/new"
+            class="inline-flex items-center rounded-xl px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700">
+            + สร้างอีเวนต์ใหม่
+          </a>
+        </header>
 
-              <div class="mt-4 flex gap-2">
-                <a href="/api/events/<%= ev._id %>/edit"
-                   class="px-3 py-1.5 text-sm rounded-lg border border-zinc-300 hover:bg-zinc-100">แก้ไข</a>
-                <a href="/api/events/<%= ev._id %>"
-                   class="px-3 py-1.5 text-sm rounded-lg border border-zinc-300 hover:bg-zinc-100">ดูรายละเอียด</a>
-                <form action="/api/events/<%= ev._id %>?_method=DELETE" method="post"
-                      onsubmit="return confirm('ลบอีเวนต์นี้?');" class="ml-auto">
-                  <button type="submit"
-                          class="px-3 py-1.5 text-sm rounded-lg border border-red-300 text-red-600 hover:bg-red-50">
-                    ลบ
-                  </button>
-                </form>
-              </div>
-            </div>
+        <% if (!events || events.length===0) { %>
+          <div class="rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center text-zinc-500">
+            ยังไม่มีอีเวนต์ที่คุณสร้าง
           </div>
-        <% }) %>
-      </div>
-    <% } %>
-  </main>
+          <% } else { %>
+            <div class="grid gap-4" style="grid-template-columns: repeat(auto-fill,minmax(280px,1fr));">
+              <% events.forEach(ev=> { %>
+                <div class="rounded-2xl border border-zinc-200 bg-white overflow-hidden">
+                  <% if (ev.coverImage) { %>
+                    <img src="<%= ev.coverImage %>" alt="<%= ev.title %>" class="w-full h-36 object-cover">
+                    <% } else { %>
+                      <div
+                        class="w-full h-40 bg-zinc-100 flex items-center justify-center text-zinc-400 text-sm">
+                        ไม่มีรูป
+                      </div>
+                      <% } %>
 
-  <%- include('../includes/footer') %>
-</body>
-</html>
+                        <div class="p-4">
+                          <div class="font-semibold text-zinc-900">
+                            <%= ev.title %>
+                          </div>
+                          <div class="text-xs text-zinc-500">
+                            <%= ev.startAt ? new Date(ev.startAt).toLocaleString('th-TH') : '-' %>
+                          </div>
+                          <div class="mt-2 text-sm">
+                            ราคา: <strong>
+                              <%= Number(ev.price||0).toLocaleString('th-TH') %> THB
+                            </strong>
+                          </div>
+                          <% const now=new Date(); const endAt=ev.endAt ? new Date(ev.endAt) : null; const isEnded=endAt
+                            && endAt < now; const isSoldOut=(ev.remainingTickets || 0) <=0; const lowStock=!isSoldOut &&
+                            !isEnded && ev.remainingTickets <=Math.ceil(ev.totalTickets * 0.1); %>
+
+                            <div class="mt-1 text-xs text-zinc-600">
+                              <% if (isEnded) { %>
+                                <p class="text-red-500">อีเวนต์สิ้นสุดแล้ว</p>
+                                <% } else if (isSoldOut) { %>
+                                  <p class="text-rose-600">ตั๋วหมดแล้ว</p>
+                                  <% } else if (lowStock) { %>
+                                    <p class="text-amber-500">เหลือไม่กี่ใบ!</p>
+                                    <p> (<%= ev.remainingTickets %> / <%= ev.totalTickets %>)</p>
+                                    <% } else { %>
+                                      ตั๋วคงเหลือ: <%= ev.remainingTickets %> / <%= ev.totalTickets %>
+                                          <% } %>
+                            </div>
+
+
+
+                            <div class="mt-4 flex gap-2">
+                              <a href="/api/events/<%= ev._id %>/edit"
+                                class="px-3 py-1.5 text-sm rounded-lg border border-zinc-300 hover:bg-zinc-100">แก้ไข</a>
+                              <a href="/api/events/<%= ev._id %>"
+                                class="px-3 py-1.5 text-sm rounded-lg border border-zinc-300 hover:bg-zinc-100">ดูรายละเอียด</a>
+                              <form action="/api/events/<%= ev._id %>?_method=DELETE" method="post"
+                                onsubmit="return confirm('ลบอีเวนต์นี้?');" class="ml-auto">
+                                <button type="submit"
+                                  class="px-3 py-1.5 text-sm rounded-lg border border-red-300 text-red-600 hover:bg-red-50">
+                                  ลบ
+                                </button>
+                              </form>
+                            </div>
+                        </div>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+      </main>
+
+      <%- include('../includes/footer') %>
+  </body>
+
+  </html>

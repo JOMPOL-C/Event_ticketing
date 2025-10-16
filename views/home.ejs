@@ -28,7 +28,7 @@
             <div class="grid">
               <% events.forEach(ev=> { %>
 
-                <% if (ev.remainingTickets> 0) { %>
+                <% if (!ev.isSoldOut) { %>
                   <!-- 🟢 อีเวนต์ที่ยังเปิดขาย -->
                   <a href="/api/events/<%= ev._id %>" class="card hoverable">
                     <% if (ev.coverImage) { %>
@@ -40,6 +40,7 @@
                             <div class="title">
                               <%= ev.title %>
                             </div>
+                            
                             <div class="date">
                               <%= new Date(ev.startAt).toLocaleString('th-TH', { day:'2-digit', month:'short',
                                 year:'numeric' }) %>
@@ -77,13 +78,16 @@
 
 
       <!-- 📣 Call to Action -->
-      <section class="cta bg-white">
-        <h2>อยากจัดงานอีเวนต์ของคุณเอง?</h2>
-        <p>สมัครเป็นผู้จัดงานเพื่อสร้างกิจกรรมใหม่ได้ทันที</p>
-        <a href="/organizer" class="btn-secondary">สมัครเป็นผู้จัดงาน</a>
-      </section>
+      <% if (!user || user.role !=='organizer' ) { %>
+        <section class="cta bg-white">
+          <h2>อยากจัดงานอีเวนต์ของคุณเอง?</h2>
+          <p>สมัครเป็นผู้จัดงานเพื่อสร้างกิจกรรมใหม่ได้ทันที</p>
+          <a href="/organizer" class="btn-secondary">สมัครเป็นผู้จัดงาน</a>
+        </section>
+        <% } %>
 
-      <%- include('includes/footer') %>
+
+          <%- include('includes/footer') %>
   </body>
 
   </html>

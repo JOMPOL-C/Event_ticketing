@@ -1,117 +1,147 @@
 <%- include('../includes/head') %>
-<link rel="stylesheet" href="/styles/events.css">
-</head>
+  <link rel="stylesheet" href="/styles/events.css">
+  </head>
 
-<body class="bg-zinc-50 flex flex-col min-h-screen">
-  <%- include('../includes/nav') %>
+  <body class="bg-zinc-50 flex flex-col min-h-screen">
+    <%- include('../includes/nav') %>
 
-  <main class="flex-1 max-w-6xl mx-auto px-6 py-10">
-    <header class="flex items-center justify-between mb-8">
-      <h1 class="text-3xl font-semibold text-zinc-800">อีเวนต์ทั้งหมด</h1>
-    </header>
+      <main class="flex-1 max-w-6xl mx-auto px-6 py-10">
+        <header class="flex items-center justify-between mb-8">
+          <h1 class="text-3xl font-semibold text-zinc-800">อีเวนต์ทั้งหมด</h1>
+        </header>
 
-    <!-- ฟอร์มค้นหา -->
-    <form method="get" action="/api/events"
-      class="grid md:grid-cols-6 sm:grid-cols-2 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-zinc-200 mb-10">
-      <div class="md:col-span-2">
-        <label class="block text-sm text-zinc-600 mb-1">ค้นหา</label>
-        <input type="text" name="keyword" value="<%= (filters && filters.keyword) || '' %>"
-          placeholder="ชื่อ / รายละเอียด / สถานที่"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-1">ราคาเริ่ม</label>
-        <input type="number" name="priceMin" min="0" value="<%= (filters && filters.priceMin) || '' %>"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-1">ราคาสูงสุด</label>
-        <input type="number" name="priceMax" min="0" value="<%= (filters && filters.priceMax) || '' %>"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-1">เริ่มตั้งแต่</label>
-        <input type="date" name="dateFrom" value="<%= (filters && filters.dateFrom) || '' %>"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-1">ถึง</label>
-        <input type="date" name="dateTo" value="<%= (filters && filters.dateTo) || '' %>"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
-      </div>
-      <div>
-        <label class="block text-sm text-zinc-600 mb-1">เรียงลำดับ</label>
-        <select name="sort"
-          class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-          <option value="date_asc" <%=(filters && filters.sort==='date_asc' ) ? 'selected' : '' %>>วันเริ่มใกล้ → ไกล</option>
-          <option value="date_desc" <%=(filters && filters.sort==='date_desc' ) ? 'selected' : '' %>>วันเริ่มไกล → ใกล้</option>
-          <option value="price_asc" <%=(filters && filters.sort==='price_asc' ) ? 'selected' : '' %>>ราคาต่ำ → สูง</option>
-          <option value="price_desc" <%=(filters && filters.sort==='price_desc' ) ? 'selected' : '' %>>ราคาสูง → ต่ำ</option>
-        </select>
-      </div>
+        <!-- ฟอร์มค้นหา -->
+        <form method="get" action="/api/events"
+          class="grid md:grid-cols-6 sm:grid-cols-2 gap-4 bg-white p-6 rounded-2xl shadow-sm border border-zinc-200 mb-10">
+          <div class="md:col-span-2">
+            <label class="block text-sm text-zinc-600 mb-1">ค้นหา</label>
+            <input type="text" name="keyword" value="<%= (filters && filters.keyword) || '' %>"
+              placeholder="ชื่อ / รายละเอียด / สถานที่"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-600 mb-1">ราคาเริ่ม</label>
+            <input type="number" name="priceMin" min="0" value="<%= (filters && filters.priceMin) || '' %>"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-600 mb-1">ราคาสูงสุด</label>
+            <input type="number" name="priceMax" min="0" value="<%= (filters && filters.priceMax) || '' %>"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-600 mb-1">เริ่มตั้งแต่</label>
+            <input type="date" name="dateFrom" value="<%= (filters && filters.dateFrom) || '' %>"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-600 mb-1">ถึง</label>
+            <input type="date" name="dateTo" value="<%= (filters && filters.dateTo) || '' %>"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none" />
+          </div>
+          <div>
+            <label class="block text-sm text-zinc-600 mb-1">เรียงลำดับ</label>
+            <select name="sort"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <option value="date_asc" <%=(filters && filters.sort==='date_asc' ) ? 'selected' : '' %>>วันเริ่มใกล้ →
+                ไกล</option>
+              <option value="date_desc" <%=(filters && filters.sort==='date_desc' ) ? 'selected' : '' %>>วันเริ่มไกล →
+                ใกล้</option>
+              <option value="price_asc" <%=(filters && filters.sort==='price_asc' ) ? 'selected' : '' %>>ราคาต่ำ → สูง
+              </option>
+              <option value="price_desc" <%=(filters && filters.sort==='price_desc' ) ? 'selected' : '' %>>ราคาสูง → ต่ำ
+              </option>
+            </select>
+          </div>
 
-      <div class="md:col-span-6 flex gap-3 justify-end mt-2">
-        <button type="submit"
-          class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow">
-          🔍 ค้นหา
-        </button>
-        <a href="/api/events"
-          class="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 px-4 py-2 rounded-lg text-sm font-medium border">
-          ล้างตัวกรอง
-        </a>
-      </div>
-    </form>
-
-    <!-- รายการอีเวนต์ -->
-    <% if (!events || events.length === 0) { %>
-      <div class="text-center text-zinc-500 border border-dashed border-zinc-300 rounded-2xl py-12 bg-white">
-        🕓 ยังไม่มีอีเวนต์ในระบบ
-      </div>
-    <% } else { %>
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <% events.forEach(ev => { %>
-          <% if (ev.remainingTickets > 0) { %>
-            <a href="/api/events/<%= ev._id %>"
-              class="block bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden hover:shadow-md transition relative">
-              <% if (ev.coverImage) { %>
-                <img src="<%= ev.coverImage %>" alt="<%= ev.title %>" class="w-full h-40 object-cover">
-              <% } else { %>
-                <div class="w-full h-40 bg-zinc-100 flex items-center justify-center text-zinc-400 text-sm">
-                  ไม่มีรูป
-                </div>
-              <% } %>
-              <div class="p-4">
-                <h2 class="text-lg font-semibold text-zinc-800 truncate"><%= ev.title %></h2>
-                <p class="text-sm text-zinc-500"><%= new Date(ev.startAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short', year:'numeric' }) %></p>
-                <p class="text-sm text-zinc-700 mt-1 font-medium">💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB</p>
-              </div>
+          <div class="md:col-span-6 flex gap-3 justify-end mt-2">
+            <button type="submit"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow">
+              🔍 ค้นหา
+            </button>
+            <a href="/api/events"
+              class="bg-zinc-100 hover:bg-zinc-200 text-zinc-700 px-4 py-2 rounded-lg text-sm font-medium border">
+              ล้างตัวกรอง
             </a>
-          <% } else { %>
-            <div
-              class="relative bg-zinc-200 text-center rounded-2xl border border-zinc-300 overflow-hidden shadow-sm">
-              <% if (ev.coverImage) { %>
-                <img src="<%= ev.coverImage %>" alt="<%= ev.title %>" class="w-full h-40 object-cover opacity-60">
-              <% } else { %>
-                <div class="w-full h-40 bg-zinc-100 flex items-center justify-center text-zinc-400 text-sm">
-                  ไม่มีรูป
-                </div>
-              <% } %>
-              <div class="p-4 opacity-70">
-                <h2 class="text-lg font-semibold text-zinc-600 truncate"><%= ev.title %></h2>
-                <p class="text-sm text-zinc-500"><%= new Date(ev.startAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short', year:'numeric' }) %></p>
-                <p class="text-sm text-zinc-600 mt-1 font-medium">💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB</p>
-              </div>
-              <div
-                class="absolute inset-0 bg-zinc-800 bg-opacity-60 text-white font-bold text-lg flex items-center justify-center">
-                SOLD OUT
-              </div>
-            </div>
-          <% } %>
-        <% }) %>
-      </div>
-    <% } %>
-  </main>
+          </div>
+        </form>
 
-  <%- include('../includes/footer') %>
-</body>
-</html>
+        <!-- รายการอีเวนต์ -->
+        <% if (!events || events.length===0) { %>
+          <div class="text-center text-zinc-500 border border-dashed border-zinc-300 rounded-2xl py-12 bg-white">
+            🕓 ยังไม่มีอีเวนต์ในระบบ
+          </div>
+          <% } else { %>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <% events.forEach(ev=> {
+                const now = new Date();
+                const eventEnd = new Date(ev.endAt);
+                const isEnded = eventEnd < now; const isSoldOut=(ev.remainingTickets || 0) <=0; const cannotBuy=isEnded
+                  || isSoldOut; %>
+
+                  <% if (!cannotBuy) { %>
+                    <!-- 🟢 อีเวนต์ที่ยังขายได้ -->
+                    <a href="/api/events/<%= ev._id %>"
+                      class="block bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden hover:shadow-md transition relative">
+                      <% if (ev.coverImage) { %>
+                        <img src="<%= ev.coverImage %>" alt="<%= ev.title %>" class="w-full h-40 object-cover">
+                        <% } else { %>
+                          <div class="w-full h-40 bg-zinc-100 flex items-center justify-center text-zinc-400 text-sm">
+                            ไม่มีรูป
+                          </div>
+                          <% } %>
+                            <div class="p-4">
+                              <h2 class="text-lg font-semibold text-zinc-800 truncate">
+                                <%= ev.title %>
+                              </h2>
+                              <p class="text-sm text-zinc-500">
+                                <%= new Date(ev.startAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short',
+                                  year:'numeric' }) %>
+                              </p>
+                              <p class="text-sm text-zinc-700 mt-1 font-medium">
+                                💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB
+                              </p>
+                            </div>
+                    </a>
+
+                    <% } else { %>
+                      <!-- 🔴 อีเวนต์ที่ขายไม่ได้ (หมดตั๋วหรือจบแล้ว) -->
+                      <div
+                        class="relative bg-zinc-200 text-center rounded-2xl border border-zinc-300 overflow-hidden shadow-sm">
+                        <% if (ev.coverImage) { %>
+                          <img src="<%= ev.coverImage %>" alt="<%= ev.title %>"
+                            class="w-full h-40 object-cover opacity-60">
+                          <% } else { %>
+                            <div class="w-full h-40 bg-zinc-100 flex items-center justify-center text-zinc-400 text-sm">
+                              ไม่มีรูป
+                            </div>
+                            <% } %>
+                              <div class="p-4 opacity-70">
+                                <h2 class="text-lg font-semibold text-zinc-600 truncate">
+                                  <%= ev.title %>
+                                </h2>
+                                <p class="text-sm text-zinc-500">
+                                  <%= new Date(ev.startAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short',
+                                    year:'numeric' }) %>
+                                </p>
+                                <p class="text-sm text-zinc-600 mt-1 font-medium">
+                                  💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB
+                                </p>
+                              </div>
+                              <div
+                                class="absolute inset-0 bg-zinc-800 bg-opacity-60 text-white font-bold text-lg flex items-center justify-center">
+                                <%= isEnded ? 'ENDED' : 'SOLD OUT' %>
+                              </div>
+                      </div>
+                      <% } %>
+
+                        <% }) %>
+
+            </div>
+            <% } %>
+      </main>
+
+      <%- include('../includes/footer') %>
+  </body>
+
+  </html>

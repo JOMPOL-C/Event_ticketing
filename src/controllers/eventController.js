@@ -25,14 +25,11 @@ exports.validateCreateOrUpdate = [
 
 exports.listPublic = async (req, res, next) => {
   try {
-    const { keyword, q, priceMin, priceMax, dateFrom, dateTo, sort } = req.query;
+    const { keyword, priceMin, priceMax, dateFrom, dateTo, sort } = req.query;
     const where = { status: 'published' };
 
-    const kw = keyword?.trim() || q?.trim();
-    if (kw) {
-      // ใช้ text index
-      where.$text = { $search: kw };
-    }
+    const kw = keyword?.trim();
+    if (kw) where.$text = { $search: kw };
 
     if (priceMin || priceMax) {
       where.price = {};
@@ -46,20 +43,23 @@ exports.listPublic = async (req, res, next) => {
       if (dateTo) where.startAt.$lte = new Date(dateTo);
     }
 
-    // การเรียงลำดับ
-    let sortSpec = { startAt: 1 }; // default วันเริ่มน้อย->มาก
+    let sortSpec = { startAt: 1 };
     if (sort === 'date_desc') sortSpec = { startAt: -1 };
     if (sort === 'price_asc') sortSpec = { price: 1, startAt: 1 };
     if (sort === 'price_desc') sortSpec = { price: -1, startAt: 1 };
 
     const events = await Event.find(where).sort(sortSpec).lean();
+
     res.render('events/index', {
-      title: 'Events',
+      title: 'อีเวนต์ทั้งหมด',
       events,
-      filters: { keyword: kw || '', priceMin: priceMin || '', priceMax: priceMax || '', dateFrom: dateFrom || '', dateTo: dateTo || '', sort: sort || 'date_asc' }
+      filters: { keyword, priceMin, priceMax, dateFrom, dateTo, sort }
     });
-  } catch (err) { next(err); }
+  } catch (err) {
+    next(err);
+  }
 };
+
 
 
 exports.detail = async (req, res, next) => {
