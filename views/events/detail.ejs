@@ -1,0 +1,105 @@
+<%- include('../includes/head') %>
+  <link rel="stylesheet" href="/styles/detail.css">
+  </head>
+
+  <body>
+    <%- include('../includes/nav') %>
+
+      <main class="container">
+        <h1>
+          <%= event.title %>
+        </h1>
+
+        <% if (event.coverImage) { %>
+          <img src="<%= event.coverImage %>" alt="<%= event.title %> Cover">
+          <% } %>
+
+            <p>
+              <%= event.description %>
+            </p>
+
+            <div class="event-meta">
+              <p><strong>สถานที่:</strong> <span>
+                  <%= event.venue %>
+                </span></p>
+              <p><strong>เริ่ม:</strong> <span>
+                  <%= new Date(event.startAt).toLocaleString() %>
+                </span></p>
+              <p><strong>ราคา:</strong> <span>
+                  <%= event.price %> THB
+                </span></p>
+              <p><strong>จบ:</strong> <span>
+                  <%= new Date(event.endAt).toLocaleString() %>
+                </span></p>
+            </div>
+
+            <p><strong>ตั๋วคงเหลือ:</strong>
+              <span
+                style="color:<%=event.remainingTickets > 5 ? '#16a34a' : (event.remainingTickets > 0 ? '#F57D27' : '#dc2626') %>;">
+                <%= event.remainingTickets> 0 ? event.remainingTickets + ' ใบ' : 'หมดแล้ว' %>
+              </span>
+            </p>
+            </div>
+
+            <div id="countdown"></div>
+
+            <% if (user && user.role==='attendee' && event.status==='published' && !event.isSoldOut) { %>
+              <form action="/api/checkout" method="POST" class="form-container">
+                <input type="hidden" name="eventId" value="<%= event._id %>" />
+                <div>
+                  <label class="form-label" for="qty-input">จำนวน:</label>
+                  <input type="number" id="qty-input" name="qty" value="1" min="1" class="form-input" />
+                </div>
+                <button type="submit" class="btn-submit">ชำระเงิน</button>
+              </form>
+              <% } else if (event.isSoldOut) { %>
+                <p style="color:red;">Sold out</p>
+                <% } %>
+      </main>
+
+      <script>
+        const countdown = document.getElementById('countdown');
+        const startAt = new Date('<%= event.startAt.toISOString() %>');
+        const endAt = new Date('<%= event.endAt.toISOString() %>');
+      
+        function tick() {
+          const now = new Date();
+      
+          // งานจบแล้ว
+          if (now >= endAt) {
+            countdown.textContent = 'อีเวนต์สิ้นสุดแล้ว';
+            countdown.style.color = '#dc2626';
+            alert('อีเวนต์สิ้นสุดแล้ว');
+            window.location.href = '/';
+            return;
+          }
+      
+          // งานเริ่มแล้ว แต่ยังไม่จบ
+          if (now >= startAt && now < endAt) {
+            const ms = endAt - now;
+            const d = Math.floor(ms / 86400000);
+            const h = Math.floor((ms % 86400000) / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            countdown.textContent = `เหลือเวลา ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที ก่อนอีเวนต์จะสิ้นสุด`;
+            countdown.style.color = '#F57D27';
+            return;
+          }
+      
+          // ยังไม่เริ่ม
+          const ms = startAt - now;
+          const d = Math.floor(ms / 86400000);
+          const h = Math.floor((ms % 86400000) / 3600000);
+          const m = Math.floor((ms % 3600000) / 60000);
+          const s = Math.floor((ms % 60000) / 1000);
+          countdown.textContent = `เหลืออีก ${d} วัน ${h} ชม. ${m} นาที ${s} วินาที ก่อนอีเวนต์จะเริ่ม`;
+          countdown.style.color = '#16a34a';
+        }
+      
+        tick();
+        setInterval(tick, 1000);
+      </script>
+      
+  </body>
+
+  </html>

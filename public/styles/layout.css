@@ -1,0 +1,176 @@
+/* ---- Layout ---- */
+main {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #fafafa;
+}
+
+main {
+    flex: 1;
+    max-width: 80rem;
+    /* 1280px */
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ---- Header ---- */
+.page-header {
+    display: flex;
+    align-items: center;
+    /* จัดให้อยู่ตรงกลางแนวดิ่ง */
+    justify-content: space-between;
+    /* ดัน h1 ซ้าย, ปุ่ม ขวา */
+    flex-wrap: wrap;
+    /* 🔥 สำคัญมาก – ถ้าหน้าจอแคบ ให้ปุ่มลงบรรทัดใหม่แทนการทับ */
+    gap: 1.5rem;
+    /* เพิ่มช่องว่างระหว่างกัน */
+    margin-bottom: 2rem;
+}
+
+
+.page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ---- Buttons ---- */
+.btn,
+.btn-primary,
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border: 1px solid #d1d5db;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #f9fafb;
+}
+
+.btn-primary {
+    background-color: #4f46e5;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #4338ca;
+}
+
+.btn-danger {
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+.btn-danger:hover {
+    background-color: #fef2f2;
+}
+
+/* ---- Empty State ---- */
+.empty-state {
+    background: #fff;
+    border: 1px dashed #d4d4d8;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* ---- Grid ---- */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+/* ---- Card ---- */
+.event-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.event-card img {
+    width: 100%;
+    height: 9rem;
+    object-fit: cover;
+}
+
+.event-card .details {
+    padding: 1rem;
+}
+
+.event-card .title {
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.event-card .datetime {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.event-card .price {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.event-card .sold {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #4b5563;
+}
+
+.event-card .actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}

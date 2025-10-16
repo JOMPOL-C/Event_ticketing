@@ -1,0 +1,53 @@
+<%- include('../includes/head') %>
+<link rel="stylesheet" href="/styles/my_tickets.css">
+</head>
+
+<body class="bg-zinc-50">
+  <%- include('../includes/nav') %>
+  <main class="container" style="max-width:1000px;margin:40px auto;">
+    <h1 class="text-2xl font-semibold text-zinc-800 mb-6">ตั๋วของฉัน</h1>
+
+    <% if (!tickets || tickets.length===0) { %>
+      <div class="text-center text-zinc-500 py-10 border border-dashed border-zinc-300 rounded-xl bg-white">
+        ยังไม่มีตั๋วที่คุณซื้อ
+      </div>
+    <% } else { %>
+      <div class="ticket-grid">
+        <% tickets.forEach(t => { %>
+          <div class="ticket-card">
+            <% if (t.event) { %>
+              <div class="ticket-header">
+                <h3><%= t.event.title %></h3>
+                <p class="status"
+                   style="color:<%= new Date(t.event.endAt) < new Date() ? '#dc2626' : (new Date(t.event.startAt) > new Date() ? '#16a34a' : '#f59e0b') %>;">
+                   <%= new Date(t.event.endAt) < new Date() ? 'สิ้นสุดแล้ว' : (new Date(t.event.startAt)> new Date()
+                     ? 'ยังไม่เริ่ม' : 'กำลังจัดงาน') %>
+                </p>
+              </div>
+
+              <p class="event-date">
+                <%= new Date(t.event.startAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short', year:'numeric' }) %>
+                -
+                <%= new Date(t.event.endAt).toLocaleDateString('th-TH', { day:'2-digit', month:'short', year:'numeric' }) %>
+              </p>
+
+              <div class="ticket-body">
+                <p>โค้ด: <code><%= t.code %></code></p>
+                <% if (t.qrDataUrl) { %>
+                  <img src="<%= t.qrDataUrl %>" alt="QR" class="qr-img">
+                <% } %>
+              </div>
+            <% } else { %>
+              <div class="ticket-deleted">
+                <h3>(อีเวนต์นี้ถูกลบแล้ว)</h3>
+                <p><small>ไม่สามารถแสดงรายละเอียดได้</small></p>
+                <p>โค้ด: <code><%= t.code %></code></p>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>

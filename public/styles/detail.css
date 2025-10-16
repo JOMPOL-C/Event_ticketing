@@ -1,0 +1,252 @@
+/* --- Minimalist Event Detail Theme --- */
+/* @import Google Fonts (ใช้ฟอนต์เดียวกับส่วนอื่นๆ ของเว็บ) */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap');
+
+/* --- CSS Variables (ดึงมาจาก home.css เพื่อให้เว็บเป็นธีมเดียวกัน) --- */
+:root {
+    --background: #f9fafb;
+    /* สีพื้นหลังหลัก */
+    --foreground: #ffffff;
+    /* สีพื้นหลังรอง (เช่น card) */
+    --primary: #4f46e5;
+    /* สีหลัก (ปุ่ม, ลิงก์) - อ้างอิงจาก profile.css */
+    --primary-hover: #4338ca;
+    /* สีหลักเมื่อ hover */
+    --primary-light: rgba(79, 70, 229, 0.08);
+    /* สีพื้นหลังอ่อนๆ ของ Primary */
+
+    --text-heading: #1f2937;
+    /* สีตัวอักษรสำหรับหัวข้อ */
+    --text-body: #374151;
+    /* สีตัวอักษรสำหรับเนื้อหา */
+    --text-muted: #6b7280;
+    /* สีตัวอักษรสำหรับข้อความรอง */
+
+    --border-color: #e5e7eb;
+    /* สีเส้นขอบ */
+    --border-radius: 0.75rem;
+    /* 12px */
+}
+
+/* --- Global & Main Layout --- */
+body {
+
+    font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--text-body);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: var(--foreground);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    margin: 3rem auto;
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --- Typography --- */
+.container h1 {
+    font-family: var(--font-sans);
+    font-size: 3rem;
+    /* ✨ เพิ่มขนาดฟอนต์ให้ใหญ่ขึ้น */
+    font-weight: 700;
+    color: var(--text-heading);
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    /* ปรับระยะห่างเล็กน้อย */
+    padding-bottom: 2rem;
+    /* เพิ่มพื้นที่ใต้เส้นขีด */
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Event Cover Image --- */
+/* --- Event Cover Image (แก้ไขสัดส่วน) --- */
+img {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    /* ยังคงจำกัดความสูงสูงสุดไว้ ไม่ให้รูปสูงเกินไป */
+    object-fit: contain;
+    /* ✨ เปลี่ยนจาก cover เป็น contain เพื่อแสดงรูปเต็ม */
+    object-position: center;
+    border-radius: var(--border-radius);
+    margin-bottom: 2.5rem;
+}
+
+/* --- Event Metadata (Venue, Date, Price) --- */
+.event-meta {
+    margin: 2.5rem 0;
+    padding: 1.5rem;
+    background-color: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: 1fr;
+    /* 1 คอลัมน์บนมือถือ */
+    gap: 1rem;
+}
+
+.event-meta p {
+    font-size: 1rem;
+    color: var(--text-body);
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.event-meta p strong {
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-right: 0.75rem;
+    min-width: 60px;
+    /* จัดให้หัวข้อตรงกัน */
+}
+
+/* --- Countdown Timer --- */
+#countdown {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--primary);
+    text-align: center;
+    padding: 1rem;
+    margin: 2.5rem 0;
+    background-color: var(--primary-light);
+    border-radius: var(--border-radius);
+}
+
+/* --- Sold Out Message --- */
+p[style*="color:red;"] {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    color: #be123c !important;
+    background-color: #fff1f2;
+    border: 1px solid #ffdde1;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+/* --- Checkout Form --- */
+/* --- Checkout Form (แก้ไข) --- */
+.form-container {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    /* ✨ แก้จาก padding-top เป็น padding รอบด้าน */
+
+    /* ✨ เพิ่มสไตล์ให้เป็นกรอบที่สวยงาม */
+    background-color: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.form-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-heading);
+    margin-right: 0.5rem;
+}
+
+.form-input {
+    width: 80px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.btn-submit {
+    padding: 0.75rem 2rem;
+    background: var(--primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-hover);
+}
+
+/* --- Responsive Design --- */
+@media (min-width: 640px) {
+
+    /* บนจอที่ใหญ่ขึ้น จัด meta เป็น 2 คอลัมน์ */
+    .event-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    h1 {
+        font-size: 4rem;
+    }
+}
+
+main {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

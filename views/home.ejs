@@ -1,38 +1,93 @@
 <%- include('includes/head') %>
-<link rel="stylesheet" href="../styles/home.css">
-</head>
+  <link rel="stylesheet" href="/styles/home.css">
+  </head>
 
-<body>
-  <%- include('includes/nav') %>
+  <body class="bg-zinc-50 flex flex-col min-h-screen">
+    <%- include('includes/nav') %>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>ยินดีต้อนรับสู่ Event Ticketing</h1>
-      <p>จองตั๋วอีเวนต์สุดพิเศษของคุณได้ในที่เดียว</p>
-      <a href="/login" class="btn-primary">เริ่มต้นใช้งาน</a>
-    </div>
-    <div class="overlay"></div>
-  </section>
+      <!-- 🌟 Hero Section -->
+      <section class="hero relative flex flex-col items-center justify-center text-center py-24 px-6">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">ยินดีต้อนรับสู่ Event Ticketing </h1>
+          <p>จองตั๋วอีเวนต์สุดพิเศษของคุณได้ในที่เดียว — ง่าย สะดวก และรวดเร็ว</p>
+          <a href="/login" class="btn-primary">เริ่มต้นใช้งาน</a>
+        </div>
+      </section>
 
-  <!-- Upcoming Events Section -->
-  <section class="events">
-    <h2>🎉 อีเวนต์ที่กำลังจะมาถึง</h2>
+      <!-- 🎟 Upcoming Events Section -->
+      <section class="events">
+        <h2>อีเวนต์ทั้งหมด</h2>
 
-    <div class="empty-state">
-      <i class='bx bx-calendar-x'></i>
-      <p class="main">ยังไม่มีอีเวนต์ให้แสดงในขณะนี้</p>
-      <p class="sub">กรุณากลับมาอีกครั้งเมื่อมีการเพิ่มอีเวนต์ใหม่</p>
-    </div>
-  </section>
+        <% if (!events || events.length===0) { %>
+          <div class="empty-state">
+            <i class='bx bx-calendar-x'></i>
+            <p class="main">ยังไม่มีอีเวนต์ให้แสดงในขณะนี้</p>
+            <p class="sub">กรุณากลับมาอีกครั้งเมื่อมีการเพิ่มอีเวนต์ใหม่</p>
+          </div>
+          <% } else { %>
+            <div class="grid">
+              <% events.forEach(ev=> { %>
 
-  <!-- Call to Action -->
-  <section class="cta">
-    <h2>อยากจัดงานอีเวนต์ของคุณเอง?</h2>
-    <p>สมัครเป็นผู้จัดงานเพื่อสร้างกิจกรรมใหม่ได้ทันที</p>
-    <a href="/organizer" class="btn-secondary">สมัครเป็นผู้จัดงาน</a>
-  </section>
+                <% if (!ev.isSoldOut) { %>
+                  <!-- 🟢 อีเวนต์ที่ยังเปิดขาย -->
+                  <a href="/api/events/<%= ev._id %>" class="card hoverable">
+                    <% if (ev.coverImage) { %>
+                      <img src="<%= ev.coverImage %>" alt="<%= ev.title %>">
+                      <% } else { %>
+                        <div class="no-image">ไม่มีรูป</div>
+                        <% } %>
+                          <div>
+                            <div class="title">
+                              <%= ev.title %>
+                            </div>
+                            
+                            <div class="date">
+                              <%= new Date(ev.startAt).toLocaleString('th-TH', { day:'2-digit', month:'short',
+                                year:'numeric' }) %>
+                            </div>
+                            <div class="price">💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB</div>
+                          </div>
+                  </a>
 
-  <%- include('includes/footer') %>
-</body>
-</html>
+                  <% } else { %>
+                    <!-- 🔴 อีเวนต์ที่ตั๋วหมด -->
+                    <div class="card sold-out">
+                      <% if (ev.coverImage) { %>
+                        <img src="<%= ev.coverImage %>" alt="<%= ev.title %>">
+                        <% } else { %>
+                          <div class="no-image">ไม่มีรูป</div>
+                          <% } %>
+                            <div>
+                              <div class="title">
+                                <%= ev.title %>
+                              </div>
+                              <div class="date">
+                                <%= new Date(ev.startAt).toLocaleString('th-TH', { day:'2-digit', month:'short',
+                                  year:'numeric' }) %>
+                              </div>
+                              <div class="price">💸 <%= Number(ev.price).toLocaleString('th-TH') %> THB</div>
+                            </div>
+                            <div class="overlay">SOLD OUT</div>
+                    </div>
+                    <% } %>
+
+                      <% }) %>
+            </div>
+            <% } %>
+      </section>
+
+
+      <!-- 📣 Call to Action -->
+      <% if (!user || user.role !=='organizer' ) { %>
+        <section class="cta bg-white">
+          <h2>อยากจัดงานอีเวนต์ของคุณเอง?</h2>
+          <p>สมัครเป็นผู้จัดงานเพื่อสร้างกิจกรรมใหม่ได้ทันที</p>
+          <a href="/organizer" class="btn-secondary">สมัครเป็นผู้จัดงาน</a>
+        </section>
+        <% } %>
+
+
+          <%- include('includes/footer') %>
+  </body>
+
+  </html>

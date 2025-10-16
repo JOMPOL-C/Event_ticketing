@@ -7,22 +7,24 @@
         <div class="nav-links">
           <ul>
             <li><a href="/" class="active">หน้าแรก</a></li>
-            <li><a href="/events">อีเวนต์</a></li>
+            <li><a href="/api/events">อีเวนต์</a></li>
+            <% if (user) { %>
+              <% if (user.role === "attendee") { %>
+                <li><a href="/api/my-tickets"><i class='bx bx-purchase-tag'></i> ตั๋วของฉัน</a></li>
+              <% } else { %>
+                <li><a href="/api/events/mine"><i class='bx bx-calendar-event'></i> จัดการอีเวนต์</a></li>
+                <li><a href="/api/organizer/dashboard">แดชบอร์ด</a></li>
+              <% } %>
+            <% } %>
           </ul>
         </div>
       </div>
-  
-      <div class="nav-right">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle">
-          <span class="slider round"></span>
-        </label>
   
         <% if (user) { %>
         <!-- Logged-in User -->
         <div class="profile">
           <button class="avatar-btn" id="avatarButton">
-            <img src="<%= user.profileImage%>" alt="User Avatar">
+            <img src="<%= (user && user.profileImage) ? user.profileImage : '/images/default-avatar.png' %>" alt="User Avatar">
           </button>
           <div class="dropdown hidden" id="profileDropdown">
             <div class="dropdown-header">
@@ -32,9 +34,9 @@
             <ul>
               <li><a href="/api/profile"><i class='bx bx-user'></i> โปรไฟล์</a></li>
               <% if (user.role === "attendee") { %>
-                <li><a href="/my-tickets"><i class='bx bx-purchase-tag'></i> ตั๋วของฉัน</a></li>
+              <li><a href="/api/my-tickets"><i class='bx bx-purchase-tag'></i> ตั๋วของฉัน</a></li>
               <% } else { %>
-                <li><a href="/organizer/dashboard"><i class='bx bx-calendar-event'></i> จัดการอีเวนต์</a></li>
+              <li><a href="/api/events/mine"><i class='bx bx-calendar-event'></i> จัดการอีเวนต์</a></li>
               <% } %>
               <li><a href="/api/logout" class="logout"><i class='bx bx-log-out'></i> ออกจากระบบ</a></li>
             </ul>

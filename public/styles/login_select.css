@@ -1,4 +1,36 @@
 /* --- CSS Variables & Global Styles --- */
+main {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 :root {
     --primary-color: #4f46e5;
     --text-dark: #1f2937;
@@ -8,7 +40,7 @@
 }
 
 body {
-    font-family: 'Prompt', sans-serif;
+
     background-color: var(--background-light);
     margin: 0;
     display: flex;
